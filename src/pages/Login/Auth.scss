@@ -7,13 +7,14 @@
 	&__content {
 		display: flex;
 		flex-direction: column;
-		gap: 5vh;
+		gap: 40px;
 	}
 
 	&__header {
 		text-align: center;
 		h2 {
 			font-size: 28px;
+			font-weight: 600;
 		}
 		p {
 			font-size: 18px;
@@ -23,12 +24,12 @@
 		}
 	}
 
-    &__link {
-        width: fit-content;
-        display: block;
-        margin: 0 auto;
-        color: #adadad;
-    }
+	&__link {
+		width: fit-content;
+		display: block;
+		margin: 0 auto;
+		color: #adadad;
+	}
 
 	.button {
 		text-transform: uppercase;
@@ -37,7 +38,7 @@
 		letter-spacing: 0.1px;
 	}
 
-	.block {
+	.container {
 		width: 430px;
 	}
 }

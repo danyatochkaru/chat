@@ -4,10 +4,10 @@ import { NavLink } from "react-router-dom";
 import { Button } from "components";
 
 const LoginForm = () => {
-    const [form] = Form.useForm();
-    
+	const [form] = Form.useForm();
+
 	return (
-		<Form name="auth" form={form}>
+		<Form name="login" form={form}>
 			<Form.Item
 				name={"email"}
 				rules={[
@@ -39,7 +39,7 @@ const LoginForm = () => {
 					Войти в аккаунт
 				</Button>
 			</Form.Item>
-			<NavLink className={"auth__link"} to={"#"}>
+			<NavLink className={"auth__link"} to={"/registr"}>
 				Зарегистрироваться
 			</NavLink>
 		</Form>

@@ -1,1 +1,4 @@
-export { default as Auth } from "./Auth";
+import Registr from "./Registr";
+import Login from "./Login";
+
+export { Login, Registr };

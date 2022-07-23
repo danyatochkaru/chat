@@ -1,0 +1,43 @@
+.auth {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&__content {
+		display: flex;
+		flex-direction: column;
+		gap: 5vh;
+	}
+
+	&__header {
+		text-align: center;
+		h2 {
+			font-size: 28px;
+		}
+		p {
+			font-size: 18px;
+			line-height: 21px;
+			letter-spacing: 0.1px;
+			opacity: 0.5;
+		}
+	}
+
+    &__link {
+        width: fit-content;
+        display: block;
+        margin: 0 auto;
+        color: #adadad;
+    }
+
+	.button {
+		text-transform: uppercase;
+		font-weight: 600;
+		font-size: 14px;
+		letter-spacing: 0.1px;
+	}
+
+	.block {
+		width: 430px;
+	}
+}

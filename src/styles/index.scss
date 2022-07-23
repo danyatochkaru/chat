@@ -1,0 +1,11 @@
+@import "~antd/dist/antd.css";
+@import "@fontsource/noto-sans";
+
+body,
+html,
+#root,
+.wrapper {
+	font-family: "Noto Sans";
+	height: 100vh;
+	color: #202020;
+}

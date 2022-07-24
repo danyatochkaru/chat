@@ -15,6 +15,10 @@ const LoginForm = () => {
 						required: true,
 						message: "Вы не ввели почту",
 					},
+					{
+						type: "email",
+						message: "Введите настоящую почту",
+					},
 				]}
 			>
 				<Input size="large" placeholder="Почта" />
@@ -39,7 +43,7 @@ const LoginForm = () => {
 					Войти в аккаунт
 				</Button>
 			</Form.Item>
-			<NavLink className={"auth__link"} to={"/registr"}>
+			<NavLink className={"auth__link"} to={"/signup"}>
 				Зарегистрироваться
 			</NavLink>
 		</Form>

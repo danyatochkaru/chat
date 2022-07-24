@@ -1,0 +1,60 @@
+@import "../../styles/variables";
+
+.message {
+	display: flex;
+	gap: 13px;
+	align-items: flex-end;
+	max-width: 440px;
+	&__avatar {
+		margin-bottom: 22px;
+		> img {
+			height: 40px;
+			width: 40px;
+			border-radius: 50%;
+			object-fit: cover;
+		}
+	}
+
+	&__content {
+		display: inherit;
+		flex-direction: column;
+		gap: 8px;
+		> div {
+			width: fit-content;
+			background-color: $main-color;
+			padding: 15px;
+			border-radius: 12px 12px 12px 0;
+			> p {
+				line-height: 20px;
+				margin: 0;
+				padding: 0;
+			}
+		}
+	}
+
+	&__text {
+		color: #fff;
+	}
+
+	&__date {
+		font-size: 12px;
+		opacity: 0.5;
+	}
+
+	&__self {
+		align-self: end;
+		flex-direction: row-reverse;
+		& .message__content {
+            align-items: flex-end;
+			> div {
+                background-color: #fff;
+                border: 1px solid #ececec;
+                box-shadow: 0 4px 4px rgba(0,0,0,0.04);
+                border-radius: 12px 12px 0 12px;
+                > p{
+                    color: #202020;
+                }
+			}
+		}
+	}
+}

@@ -13,7 +13,7 @@ const Dialogs = () => {
 						"https://www.collinsdictionary.com/images/full/river_377603497_1000.jpg",
 				}}
 				text="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab aperiam eius veritatis ex. Obcaecati laudantium vitae adipisci odio corrupti nisi, totam nobis eos excepturi quasi necessitatibus architecto fugiat velit eius!"
-				createdAt={new Date("2022-07-25 12:44:01")}
+				createdAt={new Date("2022-07-24 21:44:01")}
 			/>
 			<Message
 				account={{

@@ -20,6 +20,7 @@ const LoginForm = () => {
 						message: "Введите настоящую почту",
 					},
 				]}
+				hasFeedback={true}
 			>
 				<Input size="large" placeholder="Почта" />
 			</Form.Item>
@@ -35,6 +36,7 @@ const LoginForm = () => {
 						message: "Минимум 5 символов",
 					},
 				]}
+				hasFeedback={true}
 			>
 				<Input.Password size="large" placeholder="Пароль" />
 			</Form.Item>

@@ -20,6 +20,8 @@ const LoginForm = () => {
 						message: "Введите настоящую почту",
 					},
 				]}
+				hasFeedback={true}
+				status={form.getFieldError("email").length > 0 ? "error" : "success"}
 			>
 				<Input size="large" placeholder="Почта" />
 			</Form.Item>
@@ -31,10 +33,19 @@ const LoginForm = () => {
 						message: "Вы не ввели отображаемое имя",
 					},
 					{
-						min: 2,
-						message: "Минимум 2 символa",
+						whitespace: true,
+						message: "Отображаемое имя не может быть пустым",
+					},
+					{
+						min: 3,
+						message: "Минимум 3 символa",
+					},
+					{
+						max: 28,
+						message: "Максимум 28 символов",
 					},
 				]}
+				hasFeedback={true}
 			>
 				<Input size="large" placeholder="Отображаемое имя" />
 			</Form.Item>
@@ -50,6 +61,7 @@ const LoginForm = () => {
 						message: "Минимум 5 символов",
 					},
 				]}
+				hasFeedback={true}
 			>
 				<Input.Password size="large" placeholder="Пароль" />
 			</Form.Item>
@@ -60,11 +72,16 @@ const LoginForm = () => {
 						required: true,
 						message: "Вы не ввели повтор пароля",
 					},
-					{
-						min: 5,
-						message: "Минимум 5 символов",
-					},
+					({ getFieldValue }) => ({
+						validator(_, value) {
+							if (!value || getFieldValue("password") === value) {
+								return Promise.resolve();
+							}
+							return Promise.reject("Пароли не совпадают");
+						},
+					}),
 				]}
+				hasFeedback={true}
 			>
 				<Input.Password size="large" placeholder="Повтор пароля" />
 			</Form.Item>

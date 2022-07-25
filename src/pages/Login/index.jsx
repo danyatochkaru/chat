@@ -2,7 +2,7 @@ import React from "react";
 import { LoginForm, AuthLayout } from "modules";
 import "./Auth.scss";
 
-const Login = () => {	
+const Login = () => {
 	return (
 		<AuthLayout
 			title="Авторизация"

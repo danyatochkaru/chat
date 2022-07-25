@@ -12,7 +12,7 @@ const Empty = () => (
 					<NavLink to={"/signin"}>Login</NavLink>
 				</li>
 				<li>
-					<NavLink to={"/sugnup"}>Registr</NavLink>
+					<NavLink to={"/signup"}>Registr</NavLink>
 				</li>
 				<li>
 					<NavLink to={"/dialogs"}>Dialogs</NavLink>

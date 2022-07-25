@@ -19,16 +19,38 @@
 		display: inherit;
 		flex-direction: column;
 		gap: 8px;
-		> div {
-			width: fit-content;
-			background-color: $main-color;
-			padding: 15px;
-			border-radius: 12px 12px 12px 0;
-			> p {
-				line-height: 20px;
-				margin: 0;
-				padding: 0;
-			}
+	}
+
+	&__attachments {
+		display: flex;
+		gap: 5px;
+		// flex-wrap: wrap;
+		* {
+			max-height: 12rem;
+			object-fit: cover;
+			border-radius: 12px;
+			transition: 0.2s;
+			cursor: pointer;
+			border: 1px solid #ececec;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+		}
+
+		*:hover {
+			transform: scale(1.04);
+			z-index: 2;
+		}
+	}
+
+	&__wrapper {
+		width: fit-content;
+		background-color: $main-color;
+		padding: 15px;
+		border-radius: 12px 12px 12px 0;
+		box-shadow: 0 2px 8px $main-color;
+		> p {
+			line-height: 20px;
+			margin: 0;
+			padding: 0;
 		}
 	}
 
@@ -36,8 +58,36 @@
 		color: #fff;
 	}
 
-	&__date {
+	&__info {
 		font-size: 12px;
+		opacity: 0.5;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		line-height: 1.2rem;
+
+		.more__btn {
+			transition: 0.2s;
+			height: 0.8rem;
+			width: 1rem;
+			opacity: 0;
+			color: #202020;
+		}
+
+		.more__btn:hover {
+			cursor: pointer;
+			opacity: 1 !important;
+			fill: $main-color;
+		}
+		.view_indicator {
+			height: 0.7rem;
+			width: 1rem;
+			fill: $main-color;
+			opacity: 1 !important;
+		}
+	}
+
+	&:hover .more__btn {
 		opacity: 0.5;
 	}
 
@@ -45,16 +95,19 @@
 		align-self: end;
 		flex-direction: row-reverse;
 		& .message__content {
-            align-items: flex-end;
-			> div {
-                background-color: #fff;
-                border: 1px solid #ececec;
-                box-shadow: 0 4px 4px rgba(0,0,0,0.04);
-                border-radius: 12px 12px 0 12px;
-                > p{
-                    color: #202020;
-                }
+			align-items: flex-end;
+			> .message__wrapper {
+				background-color: #fff;
+				border: 1px solid #ececec;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+				border-radius: 12px 12px 0 12px;
+				> p {
+					color: #202020;
+				}
 			}
+		}
+		& .message__info {
+			flex-direction: row-reverse;
 		}
 	}
 }

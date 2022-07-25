@@ -14,6 +14,9 @@ const Empty = () => (
 				<li>
 					<NavLink to={"/sugnup"}>Registr</NavLink>
 				</li>
+				<li>
+					<NavLink to={"/dialogs"}>Dialogs</NavLink>
+				</li>
 			</nav>
 		</center>
 	</div>

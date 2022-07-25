@@ -1,0 +1,23 @@
+@import "../../styles/variables";
+
+.dialog {
+	display: flex;
+    border: 1px blue solid;
+    max-width: 320px;
+    gap: 10px;
+    align-items: center;
+	&__avatar {
+		img {
+			height: 60px;
+			width: 60px;
+			border-radius: 50%;
+			object-fit: cover;
+		}
+	}
+	.view_indicator {
+		height: 0.7rem;
+		width: 1rem;
+		fill: $main-color;
+		opacity: 1 !important;
+	}
+}

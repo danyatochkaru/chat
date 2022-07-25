@@ -6,7 +6,7 @@
 	align-items: flex-end;
 	max-width: 440px;
 	&__avatar {
-		margin-bottom: 22px;
+		margin-bottom: 28px;
 		> img {
 			height: 40px;
 			width: 40px;
@@ -24,7 +24,6 @@
 	&__attachments {
 		display: flex;
 		gap: 5px;
-		// flex-wrap: wrap;
 		* {
 			max-height: 12rem;
 			object-fit: cover;
@@ -51,6 +50,39 @@
 			line-height: 20px;
 			margin: 0;
 			padding: 0;
+		}
+		&__typing {
+			color: #fff;
+			opacity: 0.5;
+			margin-bottom: 20px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: #e5edff;
+
+			& .circle {
+				display: block;
+				height: 8px;
+				width: 8px;
+				border-radius: 50%;
+				background-color: $main-color;
+				margin: 3px;
+			}
+			& .bouncing {
+				animation: bounce 1s ease-in-out infinite;
+				animation-delay: 3.6s;
+			}
+			& .circle:nth-child(1) {
+				animation-delay: 0ms;
+			}
+
+			& .circle:nth-child(2) {
+				animation-delay: 333ms;
+			}
+
+			& .circle:nth-child(3) {
+				animation-delay: 666ms;
+			}
 		}
 	}
 
@@ -109,5 +141,20 @@
 		& .message__info {
 			flex-direction: row-reverse;
 		}
+	}
+}
+
+@keyframes bounce {
+	0% {
+		transform: translateY(0);
+	}
+	33% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+	100% {
+		transform: translateY(0);
 	}
 }

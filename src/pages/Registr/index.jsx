@@ -1,6 +1,6 @@
 import React from "react";
 import { AuthLayout, RegistrForm } from "modules";
-import "./Auth.scss";
+import "./Registr.scss";
 
 const Registr = () => {
 	return (

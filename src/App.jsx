@@ -27,6 +27,7 @@ function App() {
 		<Routes className="wrapper">
 			<Route path="/signin" element={<Login />} />
 			<Route path="/signup" element={<Registr />} />
+			<Route path="/dialogs/:id" element={<Dialogs />} />
 			<Route path="/dialogs" element={<Dialogs />} />
 			<Route path="/profile" element={<Empty />} />
 			<Route path="/settings" element={<Empty />} />

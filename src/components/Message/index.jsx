@@ -3,8 +3,10 @@ import { format, formatDistanceToNow, formatRelative } from "date-fns";
 import ruLocale from "date-fns/locale/ru";
 import "./Message.scss";
 import classNames from "classnames";
-import { ReactComponent as CheckedIcon } from "./check.svg";
 import { ReactComponent as MenuIcon } from "./menu-dots.svg";
+import { ReactComponent as ReadedIcon } from "./readed.svg";
+import { ReactComponent as SentIcon } from "./sent.svg";
+import { ReactComponent as ErrorSentIcon } from "./sending-error.svg";
 import { NavLink } from "react-router-dom";
 
 const Message = ({
@@ -14,7 +16,7 @@ const Message = ({
 	createdAt,
 	isMe,
 	isReaded,
-	isTyping,
+	hasError,
 }) => {
 	return (
 		<div className={classNames("message", { "message__self": isMe })}>
@@ -22,13 +24,6 @@ const Message = ({
 				<img src={account?.image_path} alt={account?.username} />
 			</NavLink>
 			<div className="message__content">
-				{isTyping && (
-					<div className="message__wrapper message__wrapper__typing">
-						<span className="circle bouncing"></span>
-						<span className="circle bouncing"></span>
-						<span className="circle bouncing"></span>
-					</div>
-				)}
 				{attachments?.length && (
 					<div className="message__attachments">
 						{attachments?.length > 0 &&
@@ -73,10 +68,23 @@ const Message = ({
 								  })}
 						</time>
 					)}
-					{isMe && isReaded && (
-						<CheckedIcon className="view_indicator" title={"Просмотрено"} />
+					{hasError ? (
+						<ErrorSentIcon
+							className="view_indicator view_indicator-error"
+							title={"Ошибка при отправке"}
+						/>
+					) : (
+						isMe &&
+						(isReaded ? (
+							<ReadedIcon
+								className="view_indicator view_indicator-readed"
+								title={"Просмотрено"}
+							/>
+						) : (
+							<SentIcon className="view_indicator" title={"Отправлено"} />
+						))
 					)}
-					{!isTyping && <MenuIcon className="more__btn" />}
+					<MenuIcon className="more__btn" />
 				</span>
 			</div>
 		</div>

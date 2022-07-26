@@ -7923,7 +7923,7 @@ prompts@^2.0.1, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.8.1:
+prop-types@^15.5.10, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -9948,6 +9948,13 @@ watchpack@^2.3.1:
   dependencies:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
+
+waveform-react@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/waveform-react/-/waveform-react-0.2.3.tgz#65d13c3b7a8711bddb94a7e014c516fec9bce587"
+  integrity sha512-7Ieo+fYpZJe6p+B5f0xkOeZ8tL469vkWvyvr7L9Y9+uuREyxHSMO53sStIaWSe5Dfv4xo2cxKDVLhQX7TGj8og==
+  dependencies:
+    prop-types "^15.5.10"
 
 wbuf@^1.1.0, wbuf@^1.7.3:
   version "1.7.3"

@@ -1,40 +1,83 @@
-import { formatDistanceToNow, formatRelative } from "date-fns/esm";
+import { format, formatRelative, isToday, isYesterday } from "date-fns/esm";
 import React from "react";
-import { ReactComponent as ReadedIcon } from "../Message/check.svg";
+import { ReactComponent as ReadedIcon } from "../Message/readed.svg";
+import { ReactComponent as ErrorSentIcon } from "../Message/sending-error.svg";
+import { ReactComponent as SentIcon } from "../Message/sent.svg";
 import ruLocale from "date-fns/locale/ru";
 import "./Dialog.scss";
+import classNames from "classnames";
+import { Badge } from "antd";
+import { NavLink } from "react-router-dom";
 
-const Dialog = ({ account, text, attachments, createdAt, isMe, isReaded }) => {
+const Dialog = ({
+	account,
+	text,
+	attachments,
+	createdAt,
+	isMe,
+	isReaded,
+	hasError,
+	isActive,
+	unReaded,
+}) => {
 	return (
-		<div className="dialog">
+		<NavLink
+			to={`/dialogs/${account?.id}`}
+			className={classNames("dialog", { "dialog-active": isActive })}
+		>
 			<div className="dialog__avatar">
-				<img src={account?.image_path} alt={account?.username} />
+				<NavLink to={`/profile/${account?.id}`}>
+					<Badge dot={account?.online} color="green" offset={[-6, 34]}>
+						<img src={account?.image_path} alt={account?.username} />
+					</Badge>
+				</NavLink>
 			</div>
-			<div className="dialog__info">
-				<h3 className="dialog__username">{account?.username}</h3>
-				<p className="dialog__last_message">
-					{isMe && "Вы: "}
-					{text && <span>{text}</span>}{" "}
+			<div className="dialog__content">
+				<div className="dialog__info">
+					<p className="dialog__username">{account?.username}</p>
+					<span>
+						{hasError ? (
+							<ErrorSentIcon
+								className="view_indicator view_indicator-error"
+								title={"Ошибка при отправке"}
+							/>
+						) : isMe ? (
+							isReaded ? (
+								<ReadedIcon
+									className="view_indicator view_indicator-readed"
+									title={"Просмотрено"}
+								/>
+							) : (
+								<SentIcon className="view_indicator" title={"Отправлено"} />
+							)
+						) : (
+							<Badge count={unReaded} />
+						)}
+						<time
+							title={format(new Date(createdAt), "PPPPpppp", {
+								locale: ruLocale,
+							})}
+						>
+							{isYesterday(new Date(createdAt))
+								? formatRelative(new Date(createdAt), new Date(), {
+										addSuffix: true,
+										locale: ruLocale,
+								  })
+								: format(
+										new Date(createdAt),
+										isToday(new Date(createdAt)) ? "p" : "P",
+										{ locale: ruLocale },
+								  )}
+						</time>
+					</span>
+				</div>
+				<span className="dialog__last_message">
+					{isMe && <span>Вы:</span>}
+					{text && <span>{text}</span>}
 					{attachments?.length > 0 && <i>({attachments?.length} медиа)</i>}
-				</p>
-			</div>
-			{isReaded && (
-				<span>
-					<ReadedIcon className="view_indicator" />
 				</span>
-			)}
-			<time>
-				{new Date(createdAt) >= new Date(Date.now() + 1000 * 60 * 60)
-					? formatDistanceToNow(new Date(createdAt), {
-							addSuffix: true,
-							locale: ruLocale,
-					  })
-					: formatRelative(new Date(createdAt), new Date(), {
-							addSuffix: true,
-							locale: ruLocale,
-					  })}
-			</time>
-		</div>
+			</div>
+		</NavLink>
 	);
 };
 

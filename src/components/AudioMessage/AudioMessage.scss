@@ -1,6 +1,6 @@
 @import "../../styles/variables";
 
-.message {
+.audio_message {
 	display: flex;
 	gap: 13px;
 	align-items: flex-end;
@@ -22,40 +22,38 @@
 		gap: 8px;
 	}
 
-	&__attachments {
-		display: flex;
-		gap: 5px;
-		* {
-			max-height: 12rem;
-			object-fit: cover;
-			border-radius: 12px;
-			transition: 0.2s;
-			cursor: pointer;
-			border: 1px solid #ececec;
-			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-		}
-
-		*:hover {
-			transform: scale(1.04);
-			z-index: 2;
-		}
-	}
-
 	&__wrapper {
 		width: fit-content;
+		display: inherit;
+		align-items: center;
+		gap: 18px;
 		background-color: $main-color;
 		padding: 15px;
 		border-radius: 12px 12px 12px 0;
 		box-shadow: 0 2px 8px $main-color;
 		> p {
-			line-height: 20px;
+			color: #ececec;
+			font-weight: 700;
 			margin: 0;
 			padding: 0;
 		}
 	}
 
-	&__text {
-		color: #fff;
+	&__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 24px;
+		width: 24px;
+		background: #20202088;
+		padding: 6px;
+		border-radius: 50%;
+		border: none;
+		cursor: pointer;
+
+		* {
+			fill: #fff;
+		}
 	}
 
 	&__info {
@@ -93,6 +91,14 @@
 		}
 	}
 
+    &__time {
+        opacity: 0.5;
+
+        &--playing {
+            opacity: 1;
+        }
+    }
+
 	&:hover .more__btn {
 		opacity: 0.5;
 	}
@@ -100,9 +106,9 @@
 	&__self {
 		align-self: end;
 		flex-direction: row-reverse;
-		& .message__content {
+		& .audio_message__content {
 			align-items: flex-end;
-			> .message__wrapper {
+			> .audio_message__wrapper {
 				background-color: #fff;
 				border: 1px solid #ececec;
 				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
@@ -112,7 +118,7 @@
 				}
 			}
 		}
-		& .message__info {
+		& .audio_message__info {
 			flex-direction: row-reverse;
 		}
 	}

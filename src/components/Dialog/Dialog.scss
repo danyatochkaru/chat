@@ -2,22 +2,86 @@
 
 .dialog {
 	display: flex;
-    border: 1px blue solid;
-    max-width: 320px;
-    gap: 10px;
-    align-items: center;
+	padding: 10px 15px;
+	gap: 10px;
+	width: 350px;
+	align-items: center;
+	color: #202020;
+
+	&:hover {
+		color: #202020;
+	}
+
+	p {
+		margin-bottom: 0;
+	}
+
 	&__avatar {
 		img {
-			height: 60px;
-			width: 60px;
+			height: 40px;
+			width: 40px;
 			border-radius: 50%;
 			object-fit: cover;
 		}
 	}
+
+	&__content {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+
+	&__info {
+		display: inherit;
+		width: 100%;
+		justify-content: space-between;
+		align-items: center;
+		> span {
+			display: inherit;
+			align-items: inherit;
+			gap: 5px;
+			time {
+				font-size: 12px;
+				opacity: 0.6;
+			}
+		}
+	}
+
+	&__username {
+		font-weight: 700;
+	}
+
+	&__last_message {
+		overflow: hidden;
+		max-lines: 1;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		display: -webkit-box;
+		opacity: 0.6;
+
+		* {
+			margin-right: 5px;
+		}
+
+		i {
+			padding: 0 1px;
+			margin: 0;
+		}
+	}
+
 	.view_indicator {
 		height: 0.7rem;
 		width: 1rem;
-		fill: $main-color;
 		opacity: 1 !important;
+		fill: #202020;
+		&-readed {
+			fill: $main-color;
+		}
+		&-error {
+			fill: red;
+		}
+	}
+	&-active {
+		background-color: #e5edff;
 	}
 }

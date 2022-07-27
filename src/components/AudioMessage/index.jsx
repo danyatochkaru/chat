@@ -4,14 +4,16 @@ import "./AudioMessage.scss";
 import { NavLink } from "react-router-dom";
 import { format, formatDistanceToNow, formatRelative } from "date-fns";
 import ruLocale from "date-fns/locale/ru";
-import Waveform from "waveform-react";
 
-import { ReactComponent as PlayIcon } from "./play.svg";
-import { ReactComponent as PauseIcon } from "./pause.svg";
-import { ReactComponent as MenuIcon } from "../Message/menu-dots.svg";
-import { ReactComponent as ReadedIcon } from "../Message/readed.svg";
-import { ReactComponent as SentIcon } from "../Message/sent.svg";
-import { ReactComponent as ErrorSentIcon } from "../Message/sending-error.svg";
+import { ReactComponent as PlayIcon } from "assets/play.svg";
+import { ReactComponent as PauseIcon } from "assets/pause.svg";
+import { ReactComponent as MenuIcon } from "assets/menu-dots.svg";
+import { ReactComponent as ReadedIcon } from "assets/readed.svg";
+import { ReactComponent as SentIcon } from "assets/sent.svg";
+import { ReactComponent as ErrorSentIcon } from "assets/sending-error.svg";
+import { ReactComponent as LoadingIcon } from "assets/loading.svg";
+import Slider from "antd/lib/slider";
+import { Avatar } from "components";
 
 const AudioMessage = ({
 	account,
@@ -21,42 +23,98 @@ const AudioMessage = ({
 	isReaded,
 	hasError,
 }) => {
-	const [isPlay, setIsPlay] = React.useState(false);
+	const _audio = React.useRef(new Audio(audio.url));
+	const [audioControl, setAudioControl] = React.useState({
+		isLoading: false,
+		isPlay: false,
+		progress: 0,
+		duration: 0,
+	});
+
+	const toggleAudioPlay = () => {
+		setAudioControl({ ...audioControl, isPlay: !audioControl.isPlay });
+	};
+
+	const changeAudioDuration = (val) => (_audio.current.currentTime = val / 100);
+
+	React.useEffect(() => {
+		audioControl.isPlay ? _audio.current.play() : _audio.current.pause();
+	}, [audioControl.isPlay]);
+
+	React.useEffect(() => {
+		if (_audio.current.currentTime !== audioControl.progress)
+			changeAudioDuration(_audio.current.currentTime * 100);
+	}, [_audio.current?.currentTime]);
 
 	return (
 		<div
 			className={classNames("audio_message", { "audio_message__self": isMe })}
 		>
+			<audio
+				src={audio.url}
+				ref={_audio}
+				onLoadStart={() =>
+					setAudioControl({
+						...audioControl,
+						isLoading: true,
+					})
+				}
+				onLoadedMetadata={() =>
+					setAudioControl({
+						...audioControl,
+						duration: _audio.current.duration,
+						isLoading: false,
+					})
+				}
+				onEnded={() =>
+					setAudioControl({ ...audioControl, isPlay: false, progress: 0 })
+				}
+				onTimeUpdate={() => {
+					setAudioControl({
+						...audioControl,
+						progress: _audio.current.currentTime,
+					});
+				}}
+			></audio>
 			<NavLink to={`/profile/${account?.id}`} className="audio_message__avatar">
-				<img src={account?.image_path} alt={account?.username} />
+				<Avatar account={account} />
 			</NavLink>
 			<div className="audio_message__content">
-				<div className="audio_message__wrapper">
+				<div
+					className={classNames("audio_message__wrapper", {
+						"audio_message__wrapper--playing": audioControl.isPlay,
+					})}
+				>
 					<button
+						disabled={audioControl.isLoading}
 						className="audio_message__icon"
-						onClick={() => setIsPlay((isPlay) => !isPlay)}
+						onClick={toggleAudioPlay}
 					>
-						{isPlay ? <PauseIcon /> : <PlayIcon />}
+						{audioControl.isLoading ? (
+							<LoadingIcon className="audio_message__icon--loading" />
+						) : audioControl.isPlay ? (
+							<PauseIcon />
+						) : (
+							<PlayIcon />
+						)}
 					</button>
-					{audio && (
-						<Waveform
-							buffer={audio}
-							markerStyle={{
-								color: "#ffffff",
-								width: 4,
-							}}
-							plot="bar"
-							showPosition={true}
-							height={30}
-							width={100}
-						/>
-					)}
-					<p
-						className={classNames("audio_message__time", {
-							"audio_message__time--playing": isPlay,
-						})}
-					>
-						01:26
+					<Slider
+						step={0.1}
+						className="audio_message__slider"
+						value={audioControl.progress * 100}
+						min={0}
+						max={audioControl.duration * 100}
+						tipFormatter={null}
+						onChange={changeAudioDuration}
+						style={{
+							width: `${Math.round(audioControl.duration * 2)}px`,
+						}}
+					/>
+					<p className="audio_message__time">
+						{Math.round(audioControl.progress / 60)}:
+						{("0" + Math.round(audioControl.progress % 60)).slice(-2)}/
+						{Math.round(audioControl.duration / 60)}:
+						{("0" + Math.round(audioControl.duration % 60)).slice(-2)}
 					</p>
 				</div>
 				<span className="audio_message__info">

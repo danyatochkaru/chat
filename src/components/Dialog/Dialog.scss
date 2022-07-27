@@ -16,19 +16,15 @@
 		margin-bottom: 0;
 	}
 
-	&__avatar {
-		img {
-			height: 40px;
-			width: 40px;
-			border-radius: 50%;
-			object-fit: cover;
-		}
-	}
-
 	&__content {
 		display: flex;
 		flex-direction: column;
 		width: 100%;
+		color: #202020;
+
+		&:hover {
+			color: #202020;
+		}
 	}
 
 	&__info {

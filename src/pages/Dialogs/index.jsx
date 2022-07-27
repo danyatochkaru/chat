@@ -56,8 +56,7 @@ const Dialogs = () => {
 						id: 103,
 						username: "\\V/",
 						online: true,
-						image_path:
-							"https://i.pinimg.com/originals/c0/4f/12/c04f12db21b2c2c9ad233344596becc0.jpg",
+						image_path: "https://joeschmoe.io/api/v1/random",
 					}}
 					attachments={[
 						{
@@ -72,6 +71,15 @@ const Dialogs = () => {
 					isActive
 					isMe
 				/>
+				<Dialog
+					account={{
+						id: 10,
+						username: "Uranus",
+						online: true,
+					}}
+					text="Ты кто?"
+					createdAt={new Date("2022-07-27 19:59:11")}
+				/>
 			</section>
 			<section className="messages">
 				<AudioMessage
@@ -81,6 +89,7 @@ const Dialogs = () => {
 						image_path:
 							"https://pluspng.com/img-png/png-hd-pig-pig-png-image-pig-hd-png-baby-pig-png-hd-2054.png",
 					}}
+					audio={{ url: "https://samplelib.com/lib/preview/mp3/sample-9s.mp3" }}
 					createdAt={new Date("2022-07-26 13:19:49")}
 					isMe
 					isReaded
@@ -92,6 +101,7 @@ const Dialogs = () => {
 						image_path:
 							"https://www.collinsdictionary.com/images/full/river_377603497_1000.jpg",
 					}}
+					audio={{ url: "https://samplelib.com/lib/preview/mp3/sample-6s.mp3" }}
 					createdAt={new Date("2022-07-26 13:19:49")}
 				/>
 				<Message
@@ -118,10 +128,9 @@ const Dialogs = () => {
 				/>
 				<Message
 					account={{
-						id: 1,
-						username: "AAA",
-						image_path:
-							"https://www.collinsdictionary.com/images/full/river_377603497_1000.jpg",
+						id: 10,
+						username: "Uranus",
+						online: true,
 					}}
 					text="У меня тут немножко мемов. Держи :)"
 					attachments={[
@@ -186,6 +195,23 @@ const Dialogs = () => {
 							username: "AAA",
 							image_path:
 								"https://www.collinsdictionary.com/images/full/river_377603497_1000.jpg",
+						},
+						{
+							id: 10,
+							username: "Uranus",
+							online: true,
+						},
+						{
+							id: 2,
+							username: "bbb",
+							image_path:
+								"https://pluspng.com/img-png/png-hd-pig-pig-png-image-pig-hd-png-baby-pig-png-hd-2054.png",
+						},
+						{
+							id: 103,
+							username: "\\V/",
+							online: true,
+							image_path: "https://joeschmoe.io/api/v1/random",
 						},
 					]}
 				/>

@@ -4,3 +4,4 @@ export { default as Message } from "./Message";
 export { default as Typing } from "./Typing";
 export { default as Dialog } from "./Dialog";
 export { default as AudioMessage } from "./AudioMessage";
+export { default as Avatar } from "./Avatar";

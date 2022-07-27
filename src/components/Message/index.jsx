@@ -3,11 +3,12 @@ import { format, formatDistanceToNow, formatRelative } from "date-fns";
 import ruLocale from "date-fns/locale/ru";
 import "./Message.scss";
 import classNames from "classnames";
-import { ReactComponent as MenuIcon } from "./menu-dots.svg";
-import { ReactComponent as ReadedIcon } from "./readed.svg";
-import { ReactComponent as SentIcon } from "./sent.svg";
-import { ReactComponent as ErrorSentIcon } from "./sending-error.svg";
+import { ReactComponent as MenuIcon } from "assets/menu-dots.svg";
+import { ReactComponent as ReadedIcon } from "assets/readed.svg";
+import { ReactComponent as SentIcon } from "assets/sent.svg";
+import { ReactComponent as ErrorSentIcon } from "assets/sending-error.svg";
 import { NavLink } from "react-router-dom";
+import { Avatar } from "components";
 
 const Message = ({
 	account,
@@ -21,7 +22,7 @@ const Message = ({
 	return (
 		<div className={classNames("message", { "message__self": isMe })}>
 			<NavLink to={`/profile/${account?.id}`} className="message__avatar">
-				<img src={account?.image_path} alt={account?.username} />
+				<Avatar account={account} />
 			</NavLink>
 			<div className="message__content">
 				{attachments?.length && (

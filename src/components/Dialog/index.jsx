@@ -1,13 +1,14 @@
 import { format, formatRelative, isToday, isYesterday } from "date-fns/esm";
 import React from "react";
-import { ReactComponent as ReadedIcon } from "../Message/readed.svg";
-import { ReactComponent as ErrorSentIcon } from "../Message/sending-error.svg";
-import { ReactComponent as SentIcon } from "../Message/sent.svg";
+import { ReactComponent as ReadedIcon } from "assets/readed.svg";
+import { ReactComponent as ErrorSentIcon } from "assets/sending-error.svg";
+import { ReactComponent as SentIcon } from "assets/sent.svg";
 import ruLocale from "date-fns/locale/ru";
 import "./Dialog.scss";
 import classNames from "classnames";
-import { Badge } from "antd";
+import Badge from "antd/lib/badge";
 import { NavLink } from "react-router-dom";
+import { Avatar } from "components";
 
 const Dialog = ({
 	account,
@@ -21,18 +22,15 @@ const Dialog = ({
 	unReaded,
 }) => {
 	return (
-		<NavLink
-			to={`/dialogs/${account?.id}`}
-			className={classNames("dialog", { "dialog-active": isActive })}
-		>
+		<div className={classNames("dialog", { "dialog-active": isActive })}>
 			<div className="dialog__avatar">
 				<NavLink to={`/profile/${account?.id}`}>
 					<Badge dot={account?.online} color="green" offset={[-6, 34]}>
-						<img src={account?.image_path} alt={account?.username} />
+						<Avatar account={account} size={40} />
 					</Badge>
 				</NavLink>
 			</div>
-			<div className="dialog__content">
+			<NavLink to={`/dialogs/${account?.id}`} className="dialog__content">
 				<div className="dialog__info">
 					<p className="dialog__username">{account?.username}</p>
 					<span>
@@ -76,8 +74,8 @@ const Dialog = ({
 					{text && <span>{text}</span>}
 					{attachments?.length > 0 && <i>({attachments?.length} медиа)</i>}
 				</span>
-			</div>
-		</NavLink>
+			</NavLink>
+		</div>
 	);
 };
 

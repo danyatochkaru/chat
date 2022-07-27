@@ -8,18 +8,21 @@
 
 	&__avatar {
 		margin-bottom: 28px;
-		> img {
-			height: 40px;
-			width: 40px;
-			border-radius: 50%;
-			object-fit: cover;
-		}
 	}
 
 	&__content {
 		display: inherit;
 		flex-direction: column;
 		gap: 8px;
+	}
+
+	&__slider {
+		min-width: 80px;
+		max-width: 260px;
+		opacity: 0.7;
+		* {
+			transition: left 0.4s ease;
+		}
 	}
 
 	&__wrapper {
@@ -37,6 +40,26 @@
 			margin: 0;
 			padding: 0;
 		}
+
+		> svg {
+			height: 30px;
+			fill: #fff;
+			opacity: 0.5;
+		}
+
+		&--playing {
+			.audio_message__time {
+				opacity: 1;
+			}
+
+			.audio_message__slider {
+				opacity: 1;
+			}
+
+			> svg {
+				opacity: 1;
+			}
+		}
 	}
 
 	&__icon {
@@ -53,6 +76,12 @@
 
 		* {
 			fill: #fff;
+		}
+
+		&--loading {
+			height: 100%;
+			width: 100%;
+			transform: scale(2.5);
 		}
 	}
 
@@ -91,13 +120,9 @@
 		}
 	}
 
-    &__time {
-        opacity: 0.5;
-
-        &--playing {
-            opacity: 1;
-        }
-    }
+	&__time {
+		opacity: 0.5;
+	}
 
 	&:hover .more__btn {
 		opacity: 0.5;
@@ -106,18 +131,26 @@
 	&__self {
 		align-self: end;
 		flex-direction: row-reverse;
+
 		& .audio_message__content {
 			align-items: flex-end;
+
 			> .audio_message__wrapper {
 				background-color: #fff;
 				border: 1px solid #ececec;
 				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 				border-radius: 12px 12px 0 12px;
+
 				> p {
 					color: #202020;
 				}
+
+				svg {
+					fill: #202020;
+				}
 			}
 		}
+
 		& .audio_message__info {
 			flex-direction: row-reverse;
 		}

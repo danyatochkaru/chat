@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Typing.scss";
 import Avatar from "antd/lib/avatar";
 import { Avatar as AvatarComponent } from "components";
@@ -10,13 +10,13 @@ const Typing = ({ accounts }) => {
 			<Avatar.Group maxCount={2} size="large">
 				{accounts.map((account) => {
 					return (
-						<NavLink
+						<Link
 							key={account.id}
 							to={`/profile/${account?.id}`}
 							className="typing__avatar"
 						>
 							<AvatarComponent account={account} />
-						</NavLink>
+						</Link>
 					);
 				})}
 			</Avatar.Group>

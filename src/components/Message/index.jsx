@@ -7,7 +7,7 @@ import { ReactComponent as MenuIcon } from "assets/menu-dots.svg";
 import { ReactComponent as ReadedIcon } from "assets/readed.svg";
 import { ReactComponent as SentIcon } from "assets/sent.svg";
 import { ReactComponent as ErrorSentIcon } from "assets/sending-error.svg";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Avatar } from "components";
 
 const Message = ({
@@ -21,9 +21,9 @@ const Message = ({
 }) => {
 	return (
 		<div className={classNames("message", { "message__self": isMe })}>
-			<NavLink to={`/profile/${account?.id}`} className="message__avatar">
+			<Link to={`/profile/${account?.id}`} className="message__avatar">
 				<Avatar account={account} />
-			</NavLink>
+			</Link>
 			<div className="message__content">
 				{attachments?.length && (
 					<div className="message__attachments">

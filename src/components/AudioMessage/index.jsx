@@ -1,7 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import "./AudioMessage.scss";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { format, formatDistanceToNow, formatRelative } from "date-fns";
 import ruLocale from "date-fns/locale/ru";
 
@@ -26,6 +26,7 @@ const AudioMessage = ({
 	const _audio = React.useRef(new Audio(audio.url));
 	const [audioControl, setAudioControl] = React.useState({
 		isLoading: false,
+		isCanPlay: false,
 		isPlay: false,
 		progress: 0,
 		duration: 0,
@@ -59,10 +60,28 @@ const AudioMessage = ({
 						isLoading: true,
 					})
 				}
+				onLoadedData={() =>
+					setAudioControl({
+						...audioControl,
+						duration: _audio.current.duration,
+						isCanPlay: true,
+						isLoading: false,
+					})
+				}
+				onProgress={(e) => {
+					console.log(_audio.current.buffered.length, 
+						_audio.current.buffered.end(_audio.current.buffered.length - 1),
+					);
+					setAudioControl({
+						...audioControl,
+						isLoading: true,
+					});
+				}}
 				onLoadedMetadata={() =>
 					setAudioControl({
 						...audioControl,
 						duration: _audio.current.duration,
+						isCanPlay: true,
 						isLoading: false,
 					})
 				}
@@ -76,9 +95,9 @@ const AudioMessage = ({
 					});
 				}}
 			></audio>
-			<NavLink to={`/profile/${account?.id}`} className="audio_message__avatar">
+			<Link to={`/profile/${account?.id}`} className="audio_message__avatar">
 				<Avatar account={account} />
-			</NavLink>
+			</Link>
 			<div className="audio_message__content">
 				<div
 					className={classNames("audio_message__wrapper", {
@@ -86,12 +105,22 @@ const AudioMessage = ({
 					})}
 				>
 					<button
-						disabled={audioControl.isLoading}
+						disabled={!audioControl.isCanPlay}
 						className="audio_message__icon"
 						onClick={toggleAudioPlay}
 					>
 						{audioControl.isLoading ? (
-							<LoadingIcon className="audio_message__icon--loading" />
+							<LoadingIcon
+								className="audio_message__icon--loading"
+								title={`Загружено: ${
+									_audio.current.buffered.length &&
+									(
+										_audio.current.buffered.end(
+											_audio.current.buffered.length - 1,
+										) / _audio.current.duration * 100
+									).toFixed(1)
+								}%`}
+							/>
 						) : audioControl.isPlay ? (
 							<PauseIcon />
 						) : (
@@ -111,9 +140,9 @@ const AudioMessage = ({
 						}}
 					/>
 					<p className="audio_message__time">
-						{Math.round(audioControl.progress / 60)}:
+						{Math.floor(audioControl.progress / 60)}:
 						{("0" + Math.round(audioControl.progress % 60)).slice(-2)}/
-						{Math.round(audioControl.duration / 60)}:
+						{Math.floor(audioControl.duration / 60)}:
 						{("0" + Math.round(audioControl.duration % 60)).slice(-2)}
 					</p>
 				</div>

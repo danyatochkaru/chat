@@ -41,11 +41,6 @@ const AudioMessage = ({
 		audioControl.isPlay ? _audio.current.play() : _audio.current.pause();
 	}, [audioControl.isPlay]);
 
-	React.useEffect(() => {
-		if (_audio.current.currentTime !== audioControl.progress)
-			changeAudioDuration(_audio.current.currentTime * 100);
-	}, [_audio.current?.currentTime]);
-
 	return (
 		<div
 			className={classNames("audio_message", { "audio_message__self": isMe })}
@@ -53,24 +48,33 @@ const AudioMessage = ({
 			<audio
 				src={audio.url}
 				ref={_audio}
-				onLoadStart={() =>
+				onLoadStart={() => {
 					setAudioControl({
 						...audioControl,
 						isLoading: true,
-					})
-				}
-				onLoadedData={() =>
+					});
+				}}
+				onWaiting={() => {
+					setAudioControl({
+						...audioControl,
+						isLoading: true,
+					});
+				}}
+				onPlaying={() => {
+					setAudioControl({
+						...audioControl,
+						isLoading: false,
+					});
+				}}
+				onLoadedData={() => {
 					setAudioControl({
 						...audioControl,
 						duration: _audio.current.duration,
 						isCanPlay: true,
 						isLoading: false,
-					})
-				}
-				onProgress={(e) => {
-					// console.log(_audio.current.buffered.length, 
-					// 	_audio.current.buffered.end(_audio.current.buffered.length - 1),
-					// );
+					});
+				}}
+				onProgress={() => {
 					setAudioControl({
 						...audioControl,
 						isLoading: true,
@@ -111,14 +115,17 @@ const AudioMessage = ({
 						{audioControl.isLoading ? (
 							<LoadingIcon
 								className="audio_message__icon--loading"
-								title={`Загружено: ${
-									_audio.current.buffered.length &&
-									(
-										_audio.current.buffered.end(
-											_audio.current.buffered.length - 1,
-										) / _audio.current.duration * 100
-									).toFixed(1)
-								}%`}
+								title="Загрузка"
+								// title={`Загружено: ${
+								// 	_audio.current.buffered.length &&
+								// 	(
+								// 		(_audio.current.buffered.end(
+								// 			_audio.current.buffered.length - 1,
+								// 		) /
+								// 			_audio.current.duration) *
+								// 		100
+								// 	).toFixed(1)
+								// }%`}
 							/>
 						) : audioControl.isPlay ? (
 							<PauseIcon />

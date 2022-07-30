@@ -22,7 +22,7 @@ const AudioMessage = ({
 	isReaded,
 	hasError,
 }) => {
-	const _audio = React.useRef(new Audio(audio.url));
+	const _audio = React.useRef(new Audio(audio));
 	const [audioControl, setAudioControl] = React.useState({
 		isLoading: false,
 		isCanPlay: false,
@@ -46,7 +46,7 @@ const AudioMessage = ({
 			className={classNames("audio_message", { "audio_message__self": isMe })}
 		>
 			<audio
-				src={audio.url}
+				src={audio}
 				ref={_audio}
 				onLoadStart={() => {
 					setAudioControl({

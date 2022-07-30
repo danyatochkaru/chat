@@ -20,7 +20,7 @@ const AvatarComponent = ({ account, ...props }) => {
 			src={account?.image_path}
 			style={
 				!account?.image_path && {
-					backgroundColor: userColors[Math.floor(account.id % 10)],
+					backgroundColor: userColors[Math.floor(isNaN(account?.id) ? 0 : account.id % 10)],
 				}
 			}
 			{...props}

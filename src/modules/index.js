@@ -1,5 +1,5 @@
-import LoginForm from "./LoginForm";
 import AuthLayout from "./AuthLayout";
-import RegistrForm from "./RegistrForm";
+import { Login, Registr } from "./Forms";
+import { DialogSection, SidebarSection } from "./Chat";
 
-export { LoginForm, AuthLayout, RegistrForm };
+export { AuthLayout, Login, Registr, DialogSection, SidebarSection };

@@ -3,7 +3,7 @@ import { Input, Form } from "antd";
 import { NavLink } from "react-router-dom";
 import { Button } from "components";
 
-const LoginForm = () => {
+const RegistrForm = () => {
 	const [form] = Form.useForm();
 
 	return (
@@ -97,4 +97,4 @@ const LoginForm = () => {
 	);
 };
 
-export default LoginForm;
+export default RegistrForm;

@@ -11,7 +11,7 @@ const Typing = ({ accounts }) => {
 				{accounts.map((account) => {
 					return (
 						<Link
-							key={account.id}
+							key={account?.id}
 							to={`/profile/${account?.id}`}
 							className="typing__avatar"
 						>

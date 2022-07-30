@@ -7,7 +7,7 @@ import {
 	SendOutlined,
 	SmileOutlined,
 } from "@ant-design/icons";
-import { Input } from "antd";
+import { Button, Input } from "antd";
 
 const ChatInput = () => {
 	const [inputValue, setInputValue] = React.useState("");
@@ -17,17 +17,25 @@ const ChatInput = () => {
 	};
 
 	return (
-		<div className="dialog__input">
-			<SmileOutlined />
+		<div className={"dialog__input"}>
+			<Button type="text" shape="circle" icon={<SmileOutlined />} />
+
 			<Input
 				placeholder="Введите текст сообщения..."
-				allowClear
 				bordered={false}
 				onChange={onChange}
 				value={inputValue}
 			/>
-			<PaperClipOutlined />
-			{inputValue.length ? <SendOutlined /> : <AudioOutlined />}
+			<Button type="text" shape="circle" icon={<PaperClipOutlined />} />
+			{inputValue.length ? (
+				<Button
+					type="text"
+					shape="circle"
+					icon={<SendOutlined className="dialog__input-light" />}
+				/>
+			) : (
+				<Button type="text" shape="circle" icon={<AudioOutlined />} />
+			)}
 		</div>
 	);
 };

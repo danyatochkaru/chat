@@ -5,7 +5,6 @@
 	gap: 13px;
 	align-items: flex-end;
 	max-width: 440px;
-	opacity: 0.6;
 	&__avatar {
 		margin-bottom: 20px;
 	}
@@ -20,13 +19,13 @@
 		width: fit-content;
 		padding: 15px;
 		border-radius: 12px 12px 12px 0;
-		box-shadow: 0 2px 8px $main-color;
+		box-shadow: 0 2px 10px lighten($main-color, 20) ;
 		color: #fff;
 		margin-bottom: 20px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background-color: #e5edff;
+		background-color: #f4f7fd;
 
 		& .circle {
 			display: block;

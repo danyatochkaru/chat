@@ -1,0 +1,79 @@
+@import "../../../styles/variables";
+
+.sidebar {
+	background-color: #fff;
+	width: 100%;
+	max-width: 320px;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	border-right: 1px solid #f7f7f7;
+
+	&__header {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 48px;
+		flex: 0 0 auto;
+		padding: 0 20px;
+		border-bottom: 1px solid #f7f7f7;
+
+		span {
+			display: inherit;
+			align-items: inherit;
+			column-gap: 4px;
+			opacity: 0.8;
+
+			h4 {
+				margin: 0;
+				font-weight: 400;
+			}
+
+			svg {
+				transition: 0.2s;
+			}
+		}
+
+		button {
+			background: transparent;
+			transition: 0.6s;
+		}
+
+		button:hover {
+			background: #f7f7f7;
+
+			svg {
+				cursor: pointer;
+				fill: $main-color;
+			}
+		}
+	}
+
+	&__search {
+		padding: 20px;
+
+		&-input {
+			background-color: #f7f8f9;
+			border-radius: 4px;
+
+			input {
+				padding: 4px 2px;
+			}
+
+			svg {
+				opacity: 0.4;
+			}
+
+			&:hover {
+				background-color: #f7f8f9;
+			}
+		}
+	}
+
+	&__dialogs_list {
+		overflow-y: auto;
+		overflow-x: hidden;
+		height: 100%;
+	}
+}

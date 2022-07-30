@@ -6,7 +6,7 @@
 		align-items: center;
 		height: 46px;
 		flex: 0 0 auto;
-		gap: 8px;
+		gap: 2px;
 		margin: 0 20px 20px;
 		padding: 0 8px;
 		border-radius: 6px;
@@ -15,24 +15,30 @@
 
 		> span {
 			padding: 0;
-			> svg {
-				opacity: 0.6;
-				height: 20px;
-				width: 20px;
-				fill: #202020;
-				transition: 0.2s;
+		}
 
-				&:hover {
-					opacity: 1;
-					cursor: pointer;
-					fill: $main-color;
-				}
-
+		button {
+			&:hover svg {
+				opacity: 1;
+				cursor: pointer;
+				fill: $main-color;
 			}
-            &:last-child > svg {
-				transition: 0.9s;
-                fill: $main-color;
-            }
+
+			span {
+				svg {
+					opacity: 0.6;
+					height: 18px;
+					width: 18px;
+					fill: #202020;
+					transition: 0.2s;
+				}
+			}
+		}
+
+		&-light {
+			svg {
+				fill: $main-color !important;
+			}
 		}
 	}
 }

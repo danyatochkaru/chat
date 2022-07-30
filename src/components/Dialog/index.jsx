@@ -54,7 +54,10 @@ const Dialog = ({
 								<SentIcon className="view_indicator" title={"Отправлено"} />
 							)
 						) : (
-							<Badge count={unread} title={`Непрочитанных сообещний: ${unread}`} />
+							<Badge
+								count={unread}
+								title={`Непрочитанных сообещний: ${unread}`}
+							/>
 						)}
 						<time
 							title={format(new Date(createdAt), "PPPPpppp", {
@@ -76,8 +79,8 @@ const Dialog = ({
 				</div>
 				<span className="dialog_item__last_message">
 					{isMe && <span>Вы:</span>}
-					{text && <span>{text}</span>}
 					{attachments?.length > 0 && <i>({attachments?.length} медиа)</i>}
+					{text && <span>{text}</span>}
 				</span>
 			</Link>
 		</div>

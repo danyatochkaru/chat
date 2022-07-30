@@ -4,7 +4,6 @@ import "./AudioMessage.scss";
 import { Link } from "react-router-dom";
 import { format, formatDistanceToNow, formatRelative } from "date-fns";
 import ruLocale from "date-fns/locale/ru";
-
 import { ReactComponent as PlayIcon } from "assets/play.svg";
 import { ReactComponent as PauseIcon } from "assets/pause.svg";
 import { ReactComponent as MenuIcon } from "assets/menu-dots.svg";
@@ -69,9 +68,9 @@ const AudioMessage = ({
 					})
 				}
 				onProgress={(e) => {
-					console.log(_audio.current.buffered.length, 
-						_audio.current.buffered.end(_audio.current.buffered.length - 1),
-					);
+					// console.log(_audio.current.buffered.length, 
+					// 	_audio.current.buffered.end(_audio.current.buffered.length - 1),
+					// );
 					setAudioControl({
 						...audioControl,
 						isLoading: true,

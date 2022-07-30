@@ -10,6 +10,7 @@
 
 	&:hover {
 		color: #202020;
+		background-color: #f3f7ff;
 	}
 
 	p {
@@ -56,12 +57,7 @@
 		opacity: 0.6;
 
 		* {
-			margin-right: 5px;
-		}
-
-		i {
-			padding: 0 1px;
-			margin: 0;
+			margin-right: 4px;
 		}
 	}
 
@@ -78,6 +74,6 @@
 		}
 	}
 	&-active {
-		background-color: #e5edff;
+		background-color: #f3f7ff;
 	}
 }

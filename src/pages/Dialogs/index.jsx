@@ -1,11 +1,16 @@
 import React from "react";
 import "./Dialogs.scss";
+import { NavLink, useParams } from "react-router-dom";
+import {
+	FormOutlined,
+	SearchOutlined,
+	TeamOutlined,
+} from "@ant-design/icons";
+import { Input, Badge } from "antd";
 
 import { Message, Dialog, AudioMessage, Typing } from "components";
-import { FormOutlined, SearchOutlined, TeamOutlined } from "@ant-design/icons";
-import { Input, Badge } from "antd";
-import { Avatar } from "components";
-import { NavLink, useParams } from "react-router-dom";
+import { Avatar, ChatInput } from "components";
+import { ReactComponent as MenuIcon } from "assets/menu-dots.svg";
 
 const Dialogs = () => {
 	const [selectedDialog, setSelectedDialog] = React.useState({
@@ -84,7 +89,28 @@ const Dialogs = () => {
 				username: "Uranus",
 				online: true,
 			},
-			text: "Ты кто?",
+			text: "Ты кто? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab aperiam eius veritatis ex. Obcaecati laudantium vitae adipisci odio corrupti nisi, totam nobis eos excepturi quasi necessitatibus architecto fugiat velit eius!",
+			attachments: [
+				{
+					id: 4,
+					file_name: "meme",
+					file_url: "https://i.ytimg.com/vi/KxYDR0tI12I/maxresdefault.jpg",
+					file_type: "image",
+				},
+				{
+					id: 2,
+					file_name: "meme 2",
+					file_url: "https://media.sproutsocial.com/uploads/meme-example.jpg",
+					file_type: "image",
+				},
+				{
+					id: 3,
+					file_name: "meme 3",
+					file_url:
+						"https://i.pinimg.com/474x/7b/b6/6b/7bb66b72dd5d822d48a2214683e43835.jpg",
+					file_type: "image",
+				},
+			],
 			createdAt: new Date("2022-07-27 19:59:11"),
 		},
 	];
@@ -121,12 +147,24 @@ const Dialogs = () => {
 		if (id) setSelectedDialog(accounts.find((ac) => ac.id === Number(id)));
 		else
 			setSelectedDialog({
-				// id: 10,
 				username: "Общий чат",
 				image_path:
 					"https://cdn.icon-icons.com/icons2/916/PNG/512/Chat_icon-icons.com_71840.png",
 			});
 	}, [id]);
+
+	React.useLayoutEffect(() => {
+		let title = "Chat";
+
+		dialogs.forEach((d) => {
+			if (d.account.id === selectedDialog.id)
+				title = `${d?.unread ? `(${d?.unread}) ` : ""}${
+					d?.account?.username ?? "Диалоги"
+				} - Chat`;
+		});
+
+		window.document.title = title;
+	}, [selectedDialog]);
 
 	return (
 		<main className="main_container">
@@ -176,12 +214,25 @@ const Dialogs = () => {
 			</section>
 			<section className="dialog">
 				<div className="dialog__header">
-					<div
-						to={
-							selectedDialog?.id ? `/profile/${selectedDialog?.id}` : `/dialogs`
-						}
-						className="dialog__header-avatar"
-					>
+					<div />
+					<span>
+						<div className="dialog__header-avatar">
+							<NavLink
+								to={
+									selectedDialog?.id
+										? `/profile/${selectedDialog?.id}`
+										: `/dialogs`
+								}
+							>
+								<Badge
+									dot={selectedDialog?.online}
+									color="green"
+									offset={[-4, 28]}
+								>
+									<Avatar account={selectedDialog} />
+								</Badge>
+							</NavLink>
+						</div>
 						<NavLink
 							to={
 								selectedDialog?.id
@@ -189,22 +240,12 @@ const Dialogs = () => {
 									: `/dialogs`
 							}
 						>
-							<Badge
-								dot={selectedDialog?.online}
-								color="green"
-								offset={[-4, 28]}
-							>
-								<Avatar account={selectedDialog} />
-							</Badge>
+							<h3 className="dialog__header-title">
+								{selectedDialog.username}
+							</h3>
 						</NavLink>
-					</div>
-					<NavLink
-						to={
-							selectedDialog?.id ? `/profile/${selectedDialog?.id}` : `/dialogs`
-						}
-					>
-						<h3 className="dialog__header-title">{selectedDialog.username}</h3>
-					</NavLink>
+					</span>
+					<MenuIcon className="more__btn" />
 				</div>
 				<div className="dialog__messages">
 					<AudioMessage
@@ -346,7 +387,7 @@ const Dialogs = () => {
 						]}
 					/>
 				</div>
-				<div className="dialog__input"></div>
+				<ChatInput />
 			</section>
 		</main>
 	);

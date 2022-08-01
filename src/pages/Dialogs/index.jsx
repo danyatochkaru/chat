@@ -110,32 +110,6 @@ const Dialogs = () => {
 	const { id } = useParams();
 
 	React.useEffect(() => {
-		const accounts = [
-			{
-				id: 1,
-				username: "AAA",
-				image_path:
-					"https://www.collinsdictionary.com/images/full/river_377603497_1000.jpg",
-			},
-			{
-				id: 2,
-				username: "bbb",
-				image_path:
-					"https://pluspng.com/img-png/png-hd-pig-pig-png-image-pig-hd-png-baby-pig-png-hd-2054.png",
-			},
-			{
-				id: 103,
-				username: "\\V/",
-				online: true,
-				image_path: "https://joeschmoe.io/api/v1/random",
-			},
-			{
-				id: 11,
-				username: "Uranus",
-				online: true,
-			},
-		];
-
 		if (id) setSelectedDialog(dialogs.find((di) => di.account?.id === Number(id)));
 		else
 			setSelectedDialog({

@@ -1,8 +1,9 @@
 import React from "react";
-import { AuthLayout, Registr as RegistrForm } from "modules";
 import "./Registr.scss";
+import { AuthLayout, Registr as RegistrForm } from "modules";
 
 const Registr = () => {
+
 	return (
 		<AuthLayout
 			title="Регистрация"

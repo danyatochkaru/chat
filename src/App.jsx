@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Login, Registr, Dialogs } from "pages";
 import { Routes, Route, NavLink } from "react-router-dom";
 

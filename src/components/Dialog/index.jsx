@@ -11,15 +11,13 @@ import { Link } from "react-router-dom";
 import { Avatar } from "components";
 
 const Dialog = ({
+	id,
 	account,
-	text,
-	attachments,
-	createdAt,
+	message,
+	unread_count,
 	isMe,
-	isReaded,
 	hasError,
 	isActive,
-	unread,
 }) => {
 	return (
 		<div
@@ -33,7 +31,7 @@ const Dialog = ({
 				</Link>
 			</div>
 			<Link
-				to={`/dialogs/${account?.id ?? ""}`}
+				to={`/dialogs${id ? `?id=${id}` : ""}`}
 				className="dialog_item__content"
 			>
 				<div className="dialog_item__info">
@@ -45,33 +43,35 @@ const Dialog = ({
 								title={"Ошибка при отправке"}
 							/>
 						) : isMe ? (
-							isReaded ? (
+							message?.unread ? (
+								<SentIcon className="view_indicator" title={"Отправлено"} />
+							) : (
 								<ReadedIcon
 									className="view_indicator view_indicator-readed"
 									title={"Просмотрено"}
 								/>
-							) : (
-								<SentIcon className="view_indicator" title={"Отправлено"} />
 							)
 						) : (
-							<Badge
-								count={unread}
-								title={`Непрочитанных сообещний: ${unread}`}
-							/>
+							message?.unread && (
+								<Badge
+									count={unread_count}
+									title={`Непрочитанных сообещний: ${unread_count}`}
+								/>
+							)
 						)}
 						<time
-							title={format(new Date(createdAt), "PPPPpppp", {
+							title={format(new Date(message?.createdAt), "PPPPpppp", {
 								locale: ruLocale,
 							})}
 						>
-							{isYesterday(new Date(createdAt))
-								? formatRelative(new Date(createdAt), new Date(), {
+							{isYesterday(new Date(message?.createdAt))
+								? formatRelative(new Date(message?.createdAt), new Date(), {
 										addSuffix: true,
 										locale: ruLocale,
 								  })
 								: format(
-										new Date(createdAt),
-										isToday(new Date(createdAt)) ? "p" : "P",
+										new Date(message?.createdAt),
+										isToday(new Date(message?.createdAt)) ? "p" : "P",
 										{ locale: ruLocale },
 								  )}
 						</time>
@@ -79,8 +79,10 @@ const Dialog = ({
 				</div>
 				<span className="dialog_item__last_message">
 					{isMe && <span>Вы:</span>}
-					{attachments?.length > 0 && <i>({attachments?.length} медиа)</i>}
-					{text && <span>{text}</span>}
+					{message?.attachments?.length > 0 && (
+						<i>({message?.attachments?.length} медиа)</i>
+					)}
+					{message?.text && <span>{message?.text}</span>}
 				</span>
 			</Link>
 		</div>

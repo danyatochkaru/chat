@@ -1,28 +1,28 @@
-export const SESSION_ACTION_TYPES = {
-	FETCH: "SESSION:FETCH",
-	FETCH_SUCCESS: "SESSION:FETCH_SUCCESS",
-	FETCH_ERROR: "SESSION:FETCH_ERROR",
+export const MESSAGE_ACTION_TYPES = {
+	FETCH: "MESSAGE:FETCH",
+	FETCH_SUCCESS: "MESSAGE:FETCH_SUCCESS",
+	FETCH_ERROR: "MESSAGE:FETCH_ERROR",
 };
 
 const initialState = {
-	items: { id: 1 },
+	items: null,
 	loading: false,
 	error: null,
 };
 
-export default function sessionReducer(
+export default function messageReducer(
 	state = initialState,
 	{ type, payload },
 ) {
 	switch (type) {
-		case SESSION_ACTION_TYPES.FETCH: {
+		case MESSAGE_ACTION_TYPES.FETCH: {
 			return {
 				...state,
 				loading: true,
 				error: null,
 			};
 		}
-		case SESSION_ACTION_TYPES.FETCH_SUCCESS: {
+		case MESSAGE_ACTION_TYPES.FETCH_SUCCESS: {
 			return {
 				...state,
 				loading: false,
@@ -30,7 +30,7 @@ export default function sessionReducer(
 				error: null,
 			};
 		}
-		case SESSION_ACTION_TYPES.FETCH_ERROR: {
+		case MESSAGE_ACTION_TYPES.FETCH_ERROR: {
 			return {
 				...state,
 				loading: false,

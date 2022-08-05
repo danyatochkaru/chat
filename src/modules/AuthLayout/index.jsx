@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Container } from "components";
 import { useAction } from "../../hooks";
-import { Preloader } from "modules";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const AuthForm = ({ title, description, children }) => {
 	const session = useSelector((state) => state.session);
@@ -17,12 +17,12 @@ const AuthForm = ({ title, description, children }) => {
 		}
 	}, [session]);
 
-	React.useLayoutEffect(() => {
+	React.useEffect(() => {
 		fetchSession();
 		console.log(session);
 	}, []);
 
-	if (session.loading) return <Preloader />;
+	if (session.loading) return <LoadingOutlined spin />;
 
 	return (
 		<section className="auth">

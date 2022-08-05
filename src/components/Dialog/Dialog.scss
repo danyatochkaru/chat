@@ -4,10 +4,11 @@
 	display: flex;
 	padding: 10px 15px;
 	gap: 10px;
-			width: 100%;
+	width: 100%;
 	max-width: 320px;
 	align-items: center;
 	color: #202020;
+	transition: 0.2s;
 
 	&:hover {
 		color: #202020;
@@ -40,6 +41,12 @@
 			gap: 5px;
 			time {
 				font-size: 12px;
+				overflow: hidden;
+				max-lines: 1;
+				-webkit-line-clamp: 1;
+				-webkit-box-orient: vertical;
+				display: -webkit-box;
+				height: 1rem;
 				opacity: 0.6;
 			}
 		}
@@ -47,6 +54,13 @@
 
 	&__username {
 		font-weight: 700;
+		overflow: hidden;
+		max-lines: 1;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+		display: -webkit-box;
+		height: 1rem;
+		flex: 1;
 	}
 
 	&__last_message {

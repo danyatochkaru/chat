@@ -9,7 +9,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Input } from "antd";
 
-const ChatInput = () => {
+const ChatInput = ({ disabled }) => {
 	const [inputValue, setInputValue] = React.useState("");
 
 	const onChange = (e) => {
@@ -29,12 +29,18 @@ const ChatInput = () => {
 			<Button type="text" shape="circle" icon={<PaperClipOutlined />} />
 			{inputValue.length ? (
 				<Button
+					disabled={disabled}
 					type="text"
 					shape="circle"
 					icon={<SendOutlined className="dialog__input-light" />}
 				/>
 			) : (
-				<Button type="text" shape="circle" icon={<AudioOutlined />} />
+				<Button
+					disabled={disabled}
+					type="text"
+					shape="circle"
+					icon={<AudioOutlined />}
+				/>
 			)}
 		</div>
 	);

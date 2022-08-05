@@ -13,10 +13,10 @@ import { Avatar } from "components";
 const Message = ({
 	account,
 	text,
+	unread,
 	attachments,
 	createdAt,
 	isMe,
-	isReaded,
 	hasError,
 }) => {
 	return (
@@ -33,7 +33,6 @@ const Message = ({
 									case "image": {
 										return (
 											<img
-												data-url={item.file_url}
 												key={item.id}
 												src={item.file_url}
 												alt={item.file_name}
@@ -76,7 +75,7 @@ const Message = ({
 						/>
 					) : (
 						isMe &&
-						(isReaded ? (
+						(!unread ? (
 							<ReadedIcon
 								className="view_indicator view_indicator-readed"
 								title={"Просмотрено"}

@@ -20,7 +20,7 @@ const Message = ({
 	hasError,
 }) => {
 	return (
-		<div className={classNames("message", { "message__self": isMe })}>
+		<div className={classNames("message", { "message--self": isMe })}>
 			<Link to={`/profile/${account?.id}`} className="message__avatar">
 				<Avatar account={account} />
 			</Link>

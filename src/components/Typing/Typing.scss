@@ -5,6 +5,7 @@
 	gap: 13px;
 	align-items: flex-end;
 	max-width: 440px;
+	
 	&__avatar {
 		margin-bottom: 20px;
 	}
@@ -19,7 +20,7 @@
 		width: fit-content;
 		padding: 15px;
 		border-radius: 12px 12px 12px 0;
-		box-shadow: 0 2px 10px lighten($main-color, 20) ;
+		box-shadow: 0 2px 10px lighten($main-color, 20);
 		color: #fff;
 		margin-bottom: 20px;
 		display: flex;

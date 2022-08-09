@@ -52,7 +52,7 @@
 	}
 
 	&__messages {
-		overflow: auto;
+		overflow: hidden auto;
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;

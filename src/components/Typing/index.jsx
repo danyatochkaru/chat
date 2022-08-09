@@ -7,7 +7,7 @@ import { Avatar as AvatarComponent } from "components";
 const Typing = ({ accounts }) => {
 	return (
 		<div className={"typing"}>
-			<Avatar.Group maxCount={2} size="large">
+			<Avatar.Group maxCount={2}>
 				{accounts.map((account) => {
 					return (
 						<Link

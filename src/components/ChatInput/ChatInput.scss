@@ -2,6 +2,7 @@
 
 .dialog {
 	&__input {
+		position: relative;
 		display: flex;
 		align-items: center;
 		height: 46px;
@@ -40,5 +41,11 @@
 				fill: $main-color !important;
 			}
 		}
+	}
+
+	&__emoji_piker {
+		position: absolute;
+		bottom: 50px;
+		left: 0;
 	}
 }

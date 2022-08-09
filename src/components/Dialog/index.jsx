@@ -21,7 +21,9 @@ const Dialog = ({
 }) => {
 	return (
 		<div
-			className={classNames("dialog_item", { "dialog_item-active": isActive })}
+			className={classNames("dialog_item", {
+				"dialog_item-active": isActive,
+			})}
 		>
 			<div className="dialog_item__avatar">
 				<Link to={account?.id ? `/profile/${account?.id}` : `/dialogs`}>
@@ -59,22 +61,24 @@ const Dialog = ({
 								/>
 							)
 						)}
-						<time
-							title={format(new Date(message?.createdAt), "PPPPpppp", {
-								locale: ruLocale,
-							})}
-						>
-							{isYesterday(new Date(message?.createdAt))
-								? formatRelative(new Date(message?.createdAt), new Date(), {
-										addSuffix: true,
-										locale: ruLocale,
-								  })
-								: format(
-										new Date(message?.createdAt),
-										isToday(new Date(message?.createdAt)) ? "p" : "P",
-										{ locale: ruLocale },
-								  )}
-						</time>
+						{message?.createdAt && (
+							<time
+								title={format(new Date(message?.createdAt), "PPPPpppp", {
+									locale: ruLocale,
+								})}
+							>
+								{isYesterday(new Date(message?.createdAt))
+									? formatRelative(new Date(message?.createdAt), new Date(), {
+											addSuffix: true,
+											locale: ruLocale,
+									  })
+									: format(
+											new Date(message?.createdAt),
+											isToday(new Date(message?.createdAt)) ? "p" : "P",
+											{ locale: ruLocale },
+									  )}
+							</time>
+						)}
 					</span>
 				</div>
 				<span className="dialog_item__last_message">

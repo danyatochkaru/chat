@@ -10,6 +10,7 @@ import { ReactComponent as MenuIcon } from "assets/menu-dots.svg";
 import { useAction } from "../../../hooks";
 
 const Dialog = () => {
+	const messagesRef = React.useRef();
 	const { selected } = useSelector((store) => store.chat);
 	const { items } = useSelector((state) => state.session);
 	const message = useSelector((state) => state.message);
@@ -20,6 +21,17 @@ const Dialog = () => {
 	React.useEffect(() => {
 		if (searchParams.has("id")) fetchMessagesByChatId(searchParams.get("id"));
 	}, [searchParams.get("id")]);
+
+	const goToBottom = () => {
+		messagesRef.current?.addEventListener("DOMNodeInserted", (event) => {
+			const { currentTarget: target } = event;
+			target.scroll({ top: target.scrollHeight });
+		});
+	};
+
+	React.useEffect(() => {
+		goToBottom();
+	});
 
 	return (
 		<section className="dialog">
@@ -63,7 +75,7 @@ const Dialog = () => {
 								}
 							>
 								<h3 className="dialog__header-title">
-									{selected?.account?.username}
+									{selected?.accounts.find((a) => a.id !== items.id)?.username}
 								</h3>
 							</Link>
 						</span>
@@ -73,7 +85,7 @@ const Dialog = () => {
 							icon={<MenuIcon className="more__btn" />}
 						/>
 					</div>
-					<div className="dialog__messages">
+					<div className="dialog__messages" ref={messagesRef}>
 						{message.loading ? (
 							<Spin
 								indicator={<LoadingOutlined spin />}
@@ -81,7 +93,7 @@ const Dialog = () => {
 								size="large"
 								tip="Загрузка сообщений..."
 							/>
-						) : (
+						) : message.items.length ? (
 							<>
 								{message.items?.map((m) => {
 									if (m.type === "simple")
@@ -95,6 +107,7 @@ const Dialog = () => {
 												createdAt={m.createdAt}
 												isMe={m.accountId === items?.id}
 												hasError={false}
+												attachments={m.attachments}
 											/>
 										);
 									if (m.type === "audio")
@@ -114,6 +127,11 @@ const Dialog = () => {
 									/>
 								)}
 							</>
+						) : (
+							<Empty
+								className="dialog__center"
+								description={"В этом чате нет сообщений :("}
+							/>
 						)}
 					</div>
 					<ChatInput disabled={message.loading} />

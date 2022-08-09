@@ -3,15 +3,22 @@ import api from "./api.js";
 
 export const fetchMessagesByChatId = (id) => async (dispatch) => {
 	try {
-		dispatch({
-			type: MESSAGE_ACTION_TYPES.FETCH,
-		});
-		const { data } = await api.get(`/chats/${id}/messages`);
+		if (id) {
+			dispatch({
+				type: MESSAGE_ACTION_TYPES.FETCH,
+			});
+			const { data } = await api.get(`/chats/${id}/messages`);
 
-		dispatch({
-			type: MESSAGE_ACTION_TYPES.FETCH_SUCCESS,
-			payload: data,
-		});
+			dispatch({
+				type: MESSAGE_ACTION_TYPES.FETCH_SUCCESS,
+				payload: data,
+			});
+		} else {
+			dispatch({
+				type: MESSAGE_ACTION_TYPES.FETCH_SUCCESS,
+				payload: null,
+			});
+		}
 	} catch (error) {
 		console.error(error);
 

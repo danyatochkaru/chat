@@ -9,6 +9,7 @@
 	align-items: center;
 	color: #202020;
 	transition: 0.2s;
+	cursor: pointer;
 
 	&:hover {
 		color: #202020;
@@ -89,10 +90,10 @@
 			fill: red;
 		}
 	}
-	&-active,
-	&-active:hover {
+	&--active,
+	&--active:hover {
 		background-color: $main-color ;
-		a {
+		* {
 			color: #f3f7ff !important;
 		}
 

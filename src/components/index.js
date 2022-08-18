@@ -6,3 +6,4 @@ export { default as Dialog } from "./Dialog";
 export { default as AudioMessage } from "./AudioMessage";
 export { default as Avatar } from "./Avatar";
 export { default as ChatInput } from "./ChatInput";
+export { default as NewChat } from "./NewChat";

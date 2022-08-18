@@ -1,54 +1,92 @@
 import React from "react";
-import { Input, Form } from "antd";
+import { useFormik } from "formik";
+import { Input } from "antd";
 import { NavLink } from "react-router-dom";
+import * as Yup from "yup";
+import classNames from "classnames";
+
 import { Button } from "components";
+import { useAction } from "hooks";
+import { useSelector } from "react-redux";
 
 const LoginForm = () => {
-	const [form] = Form.useForm();
+	const { login } = useAction();
+	const session = useSelector((state) => state.session);
+
+	const validationSchema = Yup.object().shape({
+		email: Yup.string()
+			.email("Некорректная почта")
+			.required("Вы не ввели почту"),
+		password: Yup.string()
+			.min(5, "Минимум 5 символов")
+			.max(20, "Не более 20 символов")
+			.required("Вы не ввели пароль"),
+	});
+
+	const formik = useFormik({
+		initialValues: {
+			email: "",
+			password: "",
+		},
+		validationSchema,
+		onSubmit: async (values) => {
+			alert(JSON.stringify(values, null, 2));
+			await login(values);
+		},
+	});
 
 	return (
-		<Form name="login" form={form}>
-			<Form.Item
-				name={"email"}
-				rules={[
-					{
-						required: true,
-						message: "Вы не ввели почту",
-					},
-					{
-						type: "email",
-						message: "Введите настоящую почту",
-					},
-				]}
-				hasFeedback={true}
+		<form name="login" onSubmit={formik.handleSubmit}>
+			<Input
+				size="large"
+				placeholder="Почта"
+				name="email"
+				onChange={formik.handleChange}
+				value={formik.values.email}
+				status={formik.errors.email && formik.touched.email ? "error" : null}
+			/>
+			<div
+				className={classNames("error", {
+					"error--active": formik.errors.email && formik.touched.email,
+				})}
 			>
-				<Input size="large" placeholder="Почта" />
-			</Form.Item>
-			<Form.Item
-				name={"password"}
-				rules={[
-					{
-						required: true,
-						message: "Вы не ввели пароль",
-					},
-					{
-						min: 5,
-						message: "Минимум 5 символов",
-					},
-				]}
-				hasFeedback={true}
+				{formik.errors.email && formik.touched.email
+					? formik.errors.email
+					: null}
+			</div>
+			<Input.Password
+				size="large"
+				placeholder="Пароль"
+				name="password"
+				onChange={formik.handleChange}
+				value={formik.values.password}
+				status={
+					formik.errors.password && formik.touched.password ? "error" : null
+				}
+			/>
+			<div
+				className={classNames("error", {
+					"error--active": formik.errors.password && formik.touched.password,
+				})}
 			>
-				<Input.Password size="large" placeholder="Пароль" />
-			</Form.Item>
-			<Form.Item>
-				<Button block htmlType="submit" type="primary" size="larger">
-					Войти в аккаунт
-				</Button>
-			</Form.Item>
+				{formik.errors.password && formik.touched.password
+					? formik.errors.password
+					: null}
+			</div>
+			{session.error && (!formik.touched?.email || !formik.touched?.password) && (
+				<div className="error error--active">
+					{session.error == "Invalid email or password"
+						? "Неверная почта или пароль"
+						: session.error}
+				</div>
+			)}
+			<Button block htmlType="submit" type="primary" size="larger">
+				Войти в аккаунт
+			</Button>
 			<NavLink className={"auth__link"} to={"/signup"}>
 				Зарегистрироваться
 			</NavLink>
-		</Form>
+		</form>
 	);
 };
 

@@ -24,19 +24,10 @@ export const fetchChats = () => async (dispatch) => {
 
 export const selectChat = (id) => async (dispatch) => {
 	try {
-		if (id) {
-			const { data } = await api.get("/chats?id=" + id);
-
-			dispatch({
-				type: CHAT_ACTION_TYPES.SET_SELECTED,
-				payload: data,
-			});
-		} else {
-			dispatch({
-				type: CHAT_ACTION_TYPES.SET_SELECTED,
-				payload: null,
-			});
-		}
+		dispatch({
+			type: CHAT_ACTION_TYPES.SET_SELECTED,
+			payload: id,
+		});
 	} catch (error) {
 		console.error(error);
 

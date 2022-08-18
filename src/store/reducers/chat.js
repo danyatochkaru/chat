@@ -39,7 +39,7 @@ export default function chatReducer(state = initialState, { type, payload }) {
 		case CHAT_ACTION_TYPES.SET_SELECTED: {
 			return {
 				...state,
-				selected: payload,
+				selected: state.items?.find((item) => item.id == payload) ?? null,
 			};
 		}
 		default:

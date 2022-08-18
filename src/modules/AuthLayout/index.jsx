@@ -9,7 +9,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 const AuthForm = ({ title, description, children }) => {
 	const session = useSelector((state) => state.session);
 	const navigate = useNavigate();
-	const { fetchSession } = useAction();
+	// const { fetchSession } = useAction();
 
 	React.useEffect(() => {
 		if (session.session?.id) {
@@ -17,10 +17,9 @@ const AuthForm = ({ title, description, children }) => {
 		}
 	}, [session]);
 
-	React.useEffect(() => {
-		fetchSession();
-		console.log(session);
-	}, []);
+	// React.useEffect(() => {
+	// 	fetchSession();
+	// }, []);
 
 	if (session.loading) return <LoadingOutlined spin />;
 

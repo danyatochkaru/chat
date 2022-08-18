@@ -1,14 +1,17 @@
 import React from "react";
 import { format, formatDistanceToNow, formatRelative } from "date-fns";
 import ruLocale from "date-fns/locale/ru";
-import "./Message.scss";
+import { Link } from "react-router-dom";
+import { Image, Popover, Skeleton } from "antd";
 import classNames from "classnames";
+
+import "./Message.scss";
 import { ReactComponent as MenuIcon } from "assets/menu-dots.svg";
 import { ReactComponent as ReadedIcon } from "assets/readed.svg";
 import { ReactComponent as SentIcon } from "assets/sent.svg";
 import { ReactComponent as ErrorSentIcon } from "assets/sending-error.svg";
-import { Link } from "react-router-dom";
 import { Avatar } from "components";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const Message = ({
 	account,
@@ -32,10 +35,11 @@ const Message = ({
 								switch (item.file_type) {
 									case "image": {
 										return (
-											<img
+											<Image
 												key={item.id}
 												src={item.file_url}
 												alt={item.file_name}
+												height="12rem"
 											/>
 										);
 									}
@@ -84,7 +88,14 @@ const Message = ({
 							<SentIcon className="view_indicator" title={"Отправлено"} />
 						))
 					)}
-					<MenuIcon className="more__btn" />
+					<Popover
+						content={<span>buttons</span>}
+						trigger="click"
+						placement={isMe ? "left" : "right"}
+						arrowPointAtCenter
+					>
+						<MenuIcon className="more__btn" />
+					</Popover>
 				</span>
 			</div>
 		</div>

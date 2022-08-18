@@ -17,7 +17,7 @@ const Empty = () => (
 					<NavLink to={"/signup"}>Registr</NavLink>
 				</li>
 				<li>
-					<NavLink to={"/dialogs"}>Dialogs</NavLink>
+					<NavLink to={"/chats"}>Dialogs</NavLink>
 				</li>
 			</nav>
 		</center>
@@ -29,8 +29,8 @@ function App() {
 		<Routes className="wrapper">
 			<Route path="/signin" element={<Login />} />
 			<Route path="/signup" element={<Registr />} />
-			<Route path="/dialogs/:id" element={<Dialogs />} />
-			<Route path="/dialogs" element={<Dialogs />} />
+			<Route path="/chats/:id" element={<Dialogs />} />
+			<Route path="/chats" element={<Dialogs />} />
 			<Route path="/profile" element={<Empty />} />
 			<Route path="/settings" element={<Empty />} />
 			<Route path="*" element={<Empty />} />

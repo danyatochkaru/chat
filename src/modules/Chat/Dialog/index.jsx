@@ -47,7 +47,7 @@ const Dialog = () => {
 											? `/profile/${
 													selected?.accounts.find((a) => a.id !== items.id)?.id
 											  }`
-											: `/dialogs`
+											: `/chats`
 									}
 								>
 									<Badge
@@ -71,7 +71,7 @@ const Dialog = () => {
 										? `/profile/${
 												selected?.accounts.find((a) => a.id !== items.id)?.id
 										  }`
-										: `/dialogs`
+										: `/chats`
 								}
 							>
 								<h3 className="dialog__header-title">

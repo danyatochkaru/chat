@@ -1,19 +1,33 @@
 import React from "react";
 import "./Sidebar.scss";
 import {
+	DeleteOutlined,
 	FormOutlined,
 	LoadingOutlined,
+	NotificationOutlined,
 	SearchOutlined,
 	TeamOutlined,
 } from "@ant-design/icons";
-import { Button, Empty, Input } from "antd";
+import {
+	Badge,
+	Button,
+	Card,
+	Drawer,
+	Empty,
+	Input,
+	message,
+	Space,
+	Spin,
+} from "antd";
 
-import { Dialog } from "components";
+import { Dialog, NewChat } from "components";
 import { useSelector } from "react-redux";
 import { useAction } from "hooks";
 import { useSearchParams } from "react-router-dom";
 
 const Sidebar = ({ isSearch }) => {
+	const [showNewChat, setShowNewChat] = React.useState(false);
+	const [showNotify, setShowNotify] = React.useState(false);
 	const chat = useSelector((store) => store.chat);
 	const session = useSelector((state) => state.session);
 	const { fetchChats, selectChat } = useAction();
@@ -25,9 +39,14 @@ const Sidebar = ({ isSearch }) => {
 	}, []);
 
 	React.useEffect(() => {
-		if (searchParams.has("id")) selectChat(searchParams.get("id"));
-		else selectChat();
-	}, [searchParams.get("id")]);
+		if (searchParams.has("id")) {
+			selectChat(searchParams.get("id"));
+		} else selectChat();
+	}, [searchParams.get("id"), chat.items]);
+
+	React.useEffect(() => {
+		if (searchParams.has("window")) console.log(searchParams.get("window"));
+	}, [searchParams.get("window")]);
 
 	React.useLayoutEffect(() => {
 		let title = "Чат";
@@ -46,7 +65,17 @@ const Sidebar = ({ isSearch }) => {
 		window.document.title = title;
 	}, [chat.selected?.id]);
 
-	if (chat.loading) return <LoadingOutlined spin />;
+	if (chat.loading)
+		return (
+			<section className="sidebar">
+				<Spin
+					indicator={<LoadingOutlined spin />}
+					className="dialog__center"
+					size="large"
+					tip="Загрузка списка чатов..."
+				/>
+			</section>
+		);
 
 	return (
 		<section className="sidebar">
@@ -55,7 +84,29 @@ const Sidebar = ({ isSearch }) => {
 					<TeamOutlined />
 					<h4 className="sidebar__title">Список диалогов</h4>
 				</span>
-				<Button type="text" shape="circle" icon={<FormOutlined />} />
+				<span>
+					<Button
+						type="text"
+						shape="circle"
+						icon={
+							<Badge dot={true} offset={[-7,2]}>
+								<NotificationOutlined />
+							</Badge>
+						}
+						onClick={() => {
+							return new Date().getSeconds() % 2 === 1
+								? setShowNotify(true)
+								: message.info("Нет новых уведомлений");
+						}}
+					/>
+
+					<Button
+						type="text"
+						shape="circle"
+						icon={<FormOutlined />}
+						onClick={() => setShowNewChat(true)}
+					/>
+				</span>
 			</header>
 			<div className="sidebar__search">
 				<Input
@@ -103,6 +154,72 @@ const Sidebar = ({ isSearch }) => {
 					/>
 				)}
 			</div>
+			<NewChat
+				show={showNewChat}
+				handleCancel={() => setShowNewChat(false)}
+				handleOk={() => setShowNewChat(false)}
+			/>
+			<Drawer
+				visible={showNotify}
+				title="Уведомления"
+				placement="left"
+				onClose={() => setShowNotify(false)}
+			>
+				<Space
+					direction="vertical"
+					size="middle"
+					style={{
+						display: "flex",
+					}}
+				>
+					<Card
+						title="Приглашение в чат"
+						// bordered={false}
+						size="small"
+						style={{
+							width: "100%",
+						}}
+						extra={
+							<Button
+								danger
+								size="small"
+								shape="circle"
+								type="text"
+								icon={<DeleteOutlined />}
+							/>
+						}
+						actions={[
+							<Button danger size="small">
+								Отказаться
+							</Button>,
+							<Button type="primary" size="small">
+								Принять
+							</Button>,
+						]}
+					>
+						Вадим предлагает вам присоедениться в чат "Влажные платочки"
+					</Card>
+					<Card
+						title="Приглашение в чат"
+						// bordered={false}
+						size="small"
+						style={{
+							width: "100%",
+						}}
+						extra={
+							<Button
+								danger
+								size="small"
+								shape="circle"
+								type="text"
+								icon={<DeleteOutlined />}
+							/>
+						}
+					>
+						Миша оценил ваше фото
+					</Card>
+				</Space>
+			</Drawer>
 		</section>
 	);
 };

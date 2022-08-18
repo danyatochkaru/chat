@@ -7,7 +7,7 @@ import ruLocale from "date-fns/locale/ru";
 import "./Dialog.scss";
 import classNames from "classnames";
 import Badge from "antd/lib/badge";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Avatar } from "components";
 
 const Dialog = ({
@@ -19,23 +19,23 @@ const Dialog = ({
 	hasError,
 	isActive,
 }) => {
+	const [search, setSearch] = useSearchParams();
 	return (
 		<div
 			className={classNames("dialog_item", {
-				"dialog_item-active": isActive,
+				"dialog_item--active": isActive,
 			})}
+			onClick={() => {
+				search.set("id", id);
+				setSearch(search);
+			}}
 		>
 			<div className="dialog_item__avatar">
-				<Link to={account?.id ? `/profile/${account?.id}` : `/dialogs`}>
-					<Badge dot={account?.online} color="green" offset={[-6, 34]}>
-						<Avatar account={account} size={40} />
-					</Badge>
-				</Link>
+				<Badge dot={account?.online} color="green" offset={[-6, 34]}>
+					<Avatar account={account} size={40} />
+				</Badge>
 			</div>
-			<Link
-				to={`/dialogs${id ? `?id=${id}` : ""}`}
-				className="dialog_item__content"
-			>
+			<div className="dialog_item__content">
 				<div className="dialog_item__info">
 					<p className="dialog_item__username">{account?.username}</p>
 					<span>
@@ -88,7 +88,7 @@ const Dialog = ({
 					)}
 					{message?.text && <span>{message?.text}</span>}
 				</span>
-			</Link>
+			</div>
 		</div>
 	);
 };

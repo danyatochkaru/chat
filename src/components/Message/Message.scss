@@ -19,21 +19,20 @@
 	&__attachments {
 		display: flex;
 		gap: 5px;
-		
-		* {
+
+		.ant-image * {
 			max-height: 12rem;
 			object-fit: cover;
 			border-radius: 12px;
 			transition: 0.2s;
 			cursor: pointer;
-			border: 1px solid #ececec;
 			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 		}
 
-		*:hover {
-			transform: scale(1.04);
-			z-index: 2;
-		}
+		// img:hover {
+		// 	transform: scale(1.04);
+		// 	z-index: 2;
+		// }
 	}
 
 	&__wrapper {

@@ -9,15 +9,28 @@ import {
 	SmileOutlined,
 } from "@ant-design/icons";
 import { Button, Input } from "antd";
+import { useFormik } from "formik";
+import { useAction } from "../../hooks";
+import { useSelector } from "react-redux";
 
 const ChatInput = ({ disabled }) => {
 	const inputRef = React.useRef();
-	const [inputValue, setInputValue] = React.useState("");
 	const [emojiPickerVisible, setEmojiPickerVisible] = React.useState(false);
+	const { sendMessage } = useAction();
+	const chat = useSelector((store) => store.chat);
+
+	const formik = useFormik({
+		initialValues: {
+			chatText: "",
+		},
+		onSubmit: (v) => {
+			sendMessage({ id: chat.selected.uuid, text: v.chatText });
+		},
+	});
 
 	const onChange = (e) => {
-		setInputValue(e.target.value);
 		setEmojiPickerVisible(false);
+		formik.setFieldValue("chatText", e.target.value);
 	};
 
 	React.useEffect(() => {
@@ -34,7 +47,7 @@ const ChatInput = ({ disabled }) => {
 			inputRef.current?.input.value.substring(0, start) +
 			data.native +
 			inputRef.current?.input.value.substring(end, len);
-		setInputValue(newValue);
+		formik.setFieldValue("chatText", newValue);
 		setTimeout(
 			() =>
 				inputRef.current.setSelectionRange(
@@ -46,7 +59,7 @@ const ChatInput = ({ disabled }) => {
 	};
 
 	return (
-		<div className={"dialog__input"}>
+		<form className={"dialog__input"} onSubmit={formik.handleSubmit}>
 			{emojiPickerVisible && (
 				<span className={"dialog__emoji_piker"}>
 					<Picker
@@ -73,14 +86,15 @@ const ChatInput = ({ disabled }) => {
 				placeholder="Введите текст сообщения..."
 				bordered={false}
 				onChange={onChange}
-				value={inputValue}
+				value={formik.values.chatText}
 				ref={inputRef}
 			/>
 			<Button type="text" shape="circle" icon={<PaperClipOutlined />} />
-			{inputValue.length ? (
+			{formik.values.chatText.length ? (
 				<Button
 					disabled={disabled}
 					type="text"
+					htmlType="submit"
 					shape="circle"
 					icon={<SendOutlined className="dialog__input-light" />}
 				/>
@@ -92,7 +106,7 @@ const ChatInput = ({ disabled }) => {
 					icon={<AudioOutlined />}
 				/>
 			)}
-		</div>
+		</form>
 	);
 };
 

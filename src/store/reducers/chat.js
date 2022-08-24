@@ -3,6 +3,7 @@ export const CHAT_ACTION_TYPES = {
 	FETCH_SUCCESS: "CHAT:FETCH_SUCCESS",
 	FETCH_ERROR: "CHAT:FETCH_ERROR",
 	SET_SELECTED: "CHAT:SET_SELECTED",
+	PUSH_MESSAGE: "CHAT:PUSH_MESSAGE",
 };
 
 const initialState = {
@@ -36,11 +37,23 @@ export default function chatReducer(state = initialState, { type, payload }) {
 				error: payload,
 			};
 		}
-		case CHAT_ACTION_TYPES.SET_SELECTED: {
+		case CHAT_ACTION_TYPES.PUSH_MESSAGE: {
 			return {
 				...state,
-				selected: state.items?.find((item) => item.id == payload) ?? null,
+				items: {
+					...state.items,
+					rows: [...state.items.rows, payload],
+				},
+				loading: false,
 			};
+		}
+		case CHAT_ACTION_TYPES.SET_SELECTED: {
+			if (state.items?.count)
+				return {
+					...state,
+					selected:
+						state.items?.rows.find((item) => item.uuid == payload) ?? null,
+				};
 		}
 		default:
 			return state;

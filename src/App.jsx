@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Login, Registr, Dialogs } from "pages";
+import { useAction } from "hooks";
 import { Routes, Route, NavLink } from "react-router-dom";
 
 const Empty = () => (
@@ -25,6 +26,14 @@ const Empty = () => (
 );
 
 function App() {
+	const { fetchSession } = useAction();
+	
+	React.useEffect(() => {
+		if (localStorage.getItem("token")) {
+			fetchSession();
+		}
+	}, []);
+
 	return (
 		<Routes className="wrapper">
 			<Route path="/signin" element={<Login />} />

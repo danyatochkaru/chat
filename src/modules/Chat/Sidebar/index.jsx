@@ -24,13 +24,14 @@ import { Dialog, NewChat } from "components";
 import { useSelector } from "react-redux";
 import { useAction } from "hooks";
 import { useSearchParams } from "react-router-dom";
+import { useFormik } from "formik";
 
 const Sidebar = ({ isSearch }) => {
 	const [showNewChat, setShowNewChat] = React.useState(false);
 	const [showNotify, setShowNotify] = React.useState(false);
 	const chat = useSelector((store) => store.chat);
 	const session = useSelector((state) => state.session);
-	const { fetchChats, selectChat } = useAction();
+	const { fetchChats, selectChat, createNewChat } = useAction();
 
 	const [searchParams] = useSearchParams();
 
@@ -52,18 +53,31 @@ const Sidebar = ({ isSearch }) => {
 		let title = "Чат";
 
 		if (chat.selected) {
+			const account = chat.selected?.accounts.find(
+				(a) => a.uuid !== session.items?.account.uuid,
+			);
 			title = `${
 				chat.selected.unread_count &&
-				chat.selected.messages[0].accountId !== session.items.id
+				chat.selected.messages[0].account.uuid !== session.items?.account.uuid
 					? `(${chat.selected.unread_count}) `
 					: ""
-			}${`${
-				chat.selected.accounts.find((a) => a.id !== session.items.id)?.username
-			} - `}Чат`;
+			}${`${account?.username} - `}Чат`;
 		}
 
 		window.document.title = title;
 	}, [chat.selected?.id]);
+
+	const formik = useFormik({
+		initialValues: {
+			uuid: "",
+		},
+	});
+
+	const attemptCreateChat = () => {
+		debugger;
+		if (formik.values.uuid.length) createNewChat(formik.values.uuid);
+		setShowNewChat(false);
+	};
 
 	if (chat.loading)
 		return (
@@ -89,7 +103,7 @@ const Sidebar = ({ isSearch }) => {
 						type="text"
 						shape="circle"
 						icon={
-							<Badge dot={true} offset={[-7,2]}>
+							<Badge dot={true} offset={[-7, 2]}>
 								<NotificationOutlined />
 							</Badge>
 						}
@@ -118,24 +132,25 @@ const Sidebar = ({ isSearch }) => {
 				/>
 			</div>
 			<div className="sidebar__dialogs_list">
-				{chat.items?.length ? (
+				{chat.items?.count ? (
 					<>
-						{chat.items?.length > 0 &&
-							chat.items?.map((d) => (
+						{chat.items?.count > 0 &&
+							chat.items?.rows.map((d) => (
 								<Dialog
-									key={d.id}
+									key={d.uuid}
 									account={d.accounts.find(
-										(a) => a.id !== parseInt(session.items?.id),
+										(a) => a.uuid !== session.items?.account.uuid,
 									)}
-									id={d.id}
+									id={d.uuid}
 									message={
 										d.messages.length ? d.messages[0] : { text: <i>Пусто</i> }
 									}
 									unread_count={d.unread_count}
-									isActive={d?.id === chat.selected?.id}
+									isActive={d?.uuid === chat.selected?.uuid}
 									isMe={
 										d.messages.length > 0
-											? d.messages[0]?.accountId === parseInt(session.items?.id)
+											? d.messages[0]?.account.uuid ===
+											  session.items?.account.uuid
 											: false
 									}
 									// hasError={d.hasError}
@@ -157,7 +172,8 @@ const Sidebar = ({ isSearch }) => {
 			<NewChat
 				show={showNewChat}
 				handleCancel={() => setShowNewChat(false)}
-				handleOk={() => setShowNewChat(false)}
+				handleOk={attemptCreateChat}
+				formControl={formik}
 			/>
 			<Drawer
 				visible={showNotify}

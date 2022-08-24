@@ -5,23 +5,36 @@ import { useNavigate } from "react-router-dom";
 import { Container } from "components";
 import { useAction } from "../../hooks";
 import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 
 const AuthForm = ({ title, description, children }) => {
 	const session = useSelector((state) => state.session);
 	const navigate = useNavigate();
-	// const { fetchSession } = useAction();
+	const { fetchSession } = useAction();
 
 	React.useEffect(() => {
-		if (session.session?.id) {
+		if (session.items) {
 			return navigate("/");
 		}
 	}, [session]);
 
-	// React.useEffect(() => {
-	// 	fetchSession();
-	// }, []);
+	React.useEffect(() => {
+		fetchSession();
+	}, []);
 
-	if (session.loading) return <LoadingOutlined spin />;
+	if (session.loading)
+		return (
+			<section className="auth">
+				<div className="auth__content">
+					<Spin
+						indicator={<LoadingOutlined spin />}
+						size="large"
+						tip="Получение данных о сессии..."
+					/>
+					{/* <LoadingOutlined size="large" spin /> */}
+				</div>
+			</section>
+		);
 
 	return (
 		<section className="auth">

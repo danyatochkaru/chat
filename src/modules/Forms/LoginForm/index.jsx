@@ -30,7 +30,6 @@ const LoginForm = () => {
 		},
 		validationSchema,
 		onSubmit: async (values) => {
-			alert(JSON.stringify(values, null, 2));
 			await login(values);
 		},
 	});
@@ -73,13 +72,14 @@ const LoginForm = () => {
 					? formik.errors.password
 					: null}
 			</div>
-			{session.error && (!formik.touched?.email || !formik.touched?.password) && (
-				<div className="error error--active">
-					{session.error == "Invalid email or password"
-						? "Неверная почта или пароль"
-						: session.error}
-				</div>
-			)}
+			{session.error &&
+				(!formik.touched?.email || !formik.touched?.password) && (
+					<div className="error error--active">
+						{session.error == "Invalid email or password"
+							? "Неверная почта или пароль"
+							: session.error}
+					</div>
+				)}
 			<Button block htmlType="submit" type="primary" size="larger">
 				Войти в аккаунт
 			</Button>

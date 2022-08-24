@@ -1,7 +1,7 @@
-import { Modal } from "antd";
+import { Input, Modal } from "antd";
 import React from "react";
 
-const NewChat = ({ show, handleOk, handleCancel }) => {
+const NewChat = ({ formControl, show, handleOk, handleCancel }) => {
 	return (
 		<Modal
 			title="Новый чат"
@@ -13,7 +13,15 @@ const NewChat = ({ show, handleOk, handleCancel }) => {
 			destroyOnClose
 			centered
 		>
-			Ты кто?
+			С кем?
+			<form name="new_chat">
+				<Input
+					name="uuid"
+					value={formControl?.values?.uuid}
+					onChange={formControl?.handleChange}
+					placeholder="id"
+				/>
+			</form>
 		</Modal>
 	);
 };

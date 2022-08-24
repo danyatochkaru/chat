@@ -37,3 +37,27 @@ export const selectChat = (id) => async (dispatch) => {
 		});
 	}
 };
+
+export const createNewChat = (uuid) => async (dispatch) => {
+	try {
+		dispatch({
+			type: CHAT_ACTION_TYPES.FETCH,
+		});
+		const { data } = await api.post(`/chats`, {
+			type: "dialog",
+			accountId: uuid,
+		});
+
+		dispatch({
+			type: CHAT_ACTION_TYPES.FETCH_SUCCESS,
+			payload: data,
+		});
+	} catch (error) {
+		console.error(error);
+
+		dispatch({
+			type: CHAT_ACTION_TYPES.FETCH_ERROR,
+			payload: "Error",
+		});
+	}
+};

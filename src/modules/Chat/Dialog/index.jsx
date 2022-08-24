@@ -39,46 +39,24 @@ const Dialog = () => {
 				<>
 					<div className="dialog__header">
 						<div />
-						<span>
-							<div className="dialog__header-avatar">
-								<Link
-									to={
-										selected?.accounts.find((a) => a.id !== items.id)?.id
-											? `/profile/${
-													selected?.accounts.find((a) => a.id !== items.id)?.id
-											  }`
-											: `/chats`
-									}
-								>
-									<Badge
-										dot={
-											selected?.accounts.find((a) => a.id !== items.id)?.online
-										}
-										color="green"
-										offset={[-4, 28]}
-									>
-										<Avatar
-											account={selected?.accounts.find(
-												(a) => a.id !== items?.id,
-											)}
-										/>
-									</Badge>
-								</Link>
-							</div>
-							<Link
-								to={
-									selected?.accounts.find((a) => a.id !== items.id)?.id
-										? `/profile/${
-												selected?.accounts.find((a) => a.id !== items.id)?.id
-										  }`
-										: `/chats`
-								}
-							>
-								<h3 className="dialog__header-title">
-									{selected?.accounts.find((a) => a.id !== items.id)?.username}
-								</h3>
-							</Link>
-						</span>
+						{selected?.accounts.map((a) => {
+							if (items?.account.uuid && a.uuid !== items.account.uuid)
+								return (
+									<span>
+										<div className="dialog__header-avatar">
+											<Link to={a?.uuid ? `/profile/${a?.id}` : `/chats`}>
+												<Badge dot={a?.online} color="green" offset={[-4, 28]}>
+													<Avatar account={a} />
+												</Badge>
+											</Link>
+										</div>
+										<Link to={a?.id ? `/profile/${a?.id}` : `/chats`}>
+											<h3 className="dialog__header-title">{a.username}</h3>
+										</Link>
+									</span>
+								);
+							else return null;
+						})}
 						<Button
 							type="text"
 							shape="circle"
@@ -93,19 +71,19 @@ const Dialog = () => {
 								size="large"
 								tip="Загрузка сообщений..."
 							/>
-						) : message.items.length ? (
+						) : message.items?.count ? (
 							<>
-								{message.items?.map((m) => {
+								{message.items?.rows.map((m) => {
 									if (m.type === "simple")
 										return (
 											<Message
 												// {...m}
 												key={m.id}
-												account={m.accounts[0]}
+												account={m.account}
 												text={m.text}
 												unread={m.unread}
 												createdAt={m.createdAt}
-												isMe={m.accountId === items?.id}
+												isMe={m.account.uuid === items.account.uuid}
 												hasError={false}
 												attachments={m.attachments}
 											/>
@@ -119,10 +97,10 @@ const Dialog = () => {
 											/>
 										);
 								})}
-								{selected?.id && isTyping && (
+								{selected?.uuid && isTyping && (
 									<Typing
 										accounts={[
-											selected?.accounts.find((a) => a.id !== items.id),
+											selected?.accounts.find((a) => a.uuid !== items.uuid),
 										]}
 									/>
 								)}

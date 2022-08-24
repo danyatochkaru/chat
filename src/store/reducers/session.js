@@ -5,7 +5,7 @@ export const SESSION_ACTION_TYPES = {
 };
 
 const initialState = {
-	items: { id: 1 },
+	items: null,
 	loading: false,
 	error: null,
 };

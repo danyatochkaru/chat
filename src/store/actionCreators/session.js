@@ -1,32 +1,41 @@
+import axios from "axios";
 import { SESSION_ACTION_TYPES } from "../reducers/session.js";
 import api from "./api.js";
 
-// export const fetchSession = () => async (dispatch) => {
-// 	try {
-// 		dispatch({
-// 			type: SESSION_ACTION_TYPES.FETCH,
-// 		});
-// 		const { data } = await api.get("/sessions");
+export const fetchSession = () => async (dispatch) => {
+	try {
+		dispatch({
+			type: SESSION_ACTION_TYPES.FETCH,
+		});
 
-// 		dispatch({
-// 			type: SESSION_ACTION_TYPES.FETCH_SUCCESS,
-// 			payload: data,
-// 		});
-// 	} catch (error) {
-// 		console.error(error);
+		const host = process.env.REACT_APP_API_HOST ?? "localhost",
+			port = process.env.REACT_APP_API_PORT ?? "",
+			baseUrl = process.env.REACT_APP_API_BASE_URL ?? "api",
+			protocol = process.env.REACT_APP_API_PROTOCOL ?? "http";
 
-// 		dispatch({
-// 			type: SESSION_ACTION_TYPES.FETCH_ERROR,
-// 			payload: "Error",
-// 		});
-// 	}
-// };
+		const { data } = await axios.get(
+			`${protocol}://${host}${port}/${baseUrl}/sessions/refresh`,
+			{ withCredentials: true },
+		);
+		localStorage.setItem("token", data.accessToken);
+		dispatch({
+			type: SESSION_ACTION_TYPES.FETCH_SUCCESS,
+			payload: data,
+		});
+	} catch (error) {
+		console.error(error);
+
+		dispatch({
+			type: SESSION_ACTION_TYPES.FETCH_ERROR,
+			payload: "",
+		});
+	}
+};
 
 export const login =
 	({ email, password }) =>
 	async (dispatch) => {
 		try {
-			console.log(email, password);
 			dispatch({
 				type: SESSION_ACTION_TYPES.FETCH,
 			});

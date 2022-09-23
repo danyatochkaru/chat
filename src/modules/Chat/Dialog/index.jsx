@@ -40,11 +40,11 @@ const Dialog = () => {
 					<div className="dialog__header">
 						<div />
 						{selected?.accounts.map((a) => {
-							if (items?.account.uuid && a.uuid !== items.account.uuid)
+							if (items?.account.id && a.id !== items.account.id)
 								return (
 									<span>
 										<div className="dialog__header-avatar">
-											<Link to={a?.uuid ? `/profile/${a?.id}` : `/chats`}>
+											<Link to={a?.id ? `/profile/${a?.id}` : `/chats`}>
 												<Badge dot={a?.online} color="green" offset={[-4, 28]}>
 													<Avatar account={a} />
 												</Badge>
@@ -83,7 +83,7 @@ const Dialog = () => {
 												text={m.text}
 												unread={m.unread}
 												createdAt={m.createdAt}
-												isMe={m.account.uuid === items.account.uuid}
+												isMe={m.account.id === items.account.id}
 												hasError={false}
 												attachments={m.attachments}
 											/>
@@ -97,10 +97,10 @@ const Dialog = () => {
 											/>
 										);
 								})}
-								{selected?.uuid && isTyping && (
+								{selected?.id && isTyping && (
 									<Typing
 										accounts={[
-											selected?.accounts.find((a) => a.uuid !== items.uuid),
+											selected?.accounts.find((a) => a.id !== items.id),
 										]}
 									/>
 								)}

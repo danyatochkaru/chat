@@ -24,7 +24,7 @@ const Message = ({
 }) => {
 	return (
 		<div className={classNames("message", { "message--self": isMe })}>
-			<Link to={`/profile/${account?.uuid}`} className="message__avatar">
+			<Link to={`/profile/${account?.id}`} className="message__avatar">
 				<Avatar account={account} />
 			</Link>
 			<div className="message__content">

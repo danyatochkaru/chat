@@ -4,30 +4,37 @@ import { Login, Registr, Dialogs } from "pages";
 import { useAction } from "hooks";
 import { Routes, Route, NavLink } from "react-router-dom";
 
-const Empty = () => (
-	<div className="empty">
-		<center>
-			<h3>
-				<b>Coming soon</b>
-			</h3>
-			<nav>
-				<li>
-					<NavLink to={"/signin"}>Login</NavLink>
-				</li>
-				<li>
-					<NavLink to={"/signup"}>Registr</NavLink>
-				</li>
-				<li>
-					<NavLink to={"/chats"}>Dialogs</NavLink>
-				</li>
-			</nav>
-		</center>
-	</div>
-);
+const Empty = () => {
+	const { logout } = useAction();
+
+	return (
+		<div className="empty">
+			<center>
+				<h3>
+					<b>Coming soon</b>
+				</h3>
+				<nav>
+					<li>
+						<NavLink to={"/signin"}>Login</NavLink>
+					</li>
+					<li>
+						<NavLink to={"/signup"}>Registr</NavLink>
+					</li>
+					<li>
+						<NavLink to={"/chats"}>Dialogs</NavLink>
+					</li>
+					<li>
+						<a onClick={logout}>Logout</a>
+					</li>
+				</nav>
+			</center>
+		</div>
+	);
+};
 
 function App() {
 	const { fetchSession } = useAction();
-	
+
 	React.useEffect(() => {
 		if (localStorage.getItem("token")) {
 			fetchSession();

@@ -52,7 +52,7 @@ export default function chatReducer(state = initialState, { type, payload }) {
 				return {
 					...state,
 					selected:
-						state.items?.rows.find((item) => item.uuid == payload) ?? null,
+						state.items?.rows.find((item) => item.id == payload) ?? null,
 				};
 		}
 		default:

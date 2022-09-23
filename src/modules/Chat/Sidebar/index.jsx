@@ -49,33 +49,33 @@ const Sidebar = ({ isSearch }) => {
 		if (searchParams.has("window")) console.log(searchParams.get("window"));
 	}, [searchParams.get("window")]);
 
-	React.useLayoutEffect(() => {
-		let title = "Чат";
+	// React.useLayoutEffect(() => {
+	// 	let title = "Чат";
 
-		if (chat.selected) {
-			const account = chat.selected?.accounts.find(
-				(a) => a.uuid !== session.items?.account.uuid,
-			);
-			title = `${
-				chat.selected.unread_count &&
-				chat.selected.messages[0].account.uuid !== session.items?.account.uuid
-					? `(${chat.selected.unread_count}) `
-					: ""
-			}${`${account?.username} - `}Чат`;
-		}
+	// 	if (chat.selected) {
+	// 		const account = chat.selected?.accounts.find(
+	// 			(a) => a.id !== session.items?.account.id,
+	// 		);
+	// 		title = `${
+	// 			chat.selected.unread_count &&
+	// 			chat.selected.messages[0].account.id !== session.items?.account.id
+	// 				? `(${chat.selected.unread_count}) `
+	// 				: ""
+	// 		}${`${account?.username} - `}Чат`;
+	// 	}
 
-		window.document.title = title;
-	}, [chat.selected?.id]);
+	// 	window.document.title = title;
+	// }, [chat.selected?.id]);
 
 	const formik = useFormik({
 		initialValues: {
-			uuid: "",
+			id: "",
 		},
 	});
 
 	const attemptCreateChat = () => {
 		debugger;
-		if (formik.values.uuid.length) createNewChat(formik.values.uuid);
+		if (formik.values.id.length) createNewChat(formik.values.id);
 		setShowNewChat(false);
 	};
 
@@ -137,20 +137,17 @@ const Sidebar = ({ isSearch }) => {
 						{chat.items?.count > 0 &&
 							chat.items?.rows.map((d) => (
 								<Dialog
-									key={d.uuid}
+									key={d.id}
 									account={d.accounts.find(
-										(a) => a.uuid !== session.items?.account.uuid,
+										(a) => a.id !== session.items?.account.id,
 									)}
-									id={d.uuid}
-									message={
-										d.messages.length ? d.messages[0] : { text: <i>Пусто</i> }
-									}
+									id={d.id}
+									message={d.message || { text: <i>Пусто</i> }}
 									unread_count={d.unread_count}
-									isActive={d?.uuid === chat.selected?.uuid}
+									isActive={d?.id === chat.selected?.id}
 									isMe={
-										d.messages.length > 0
-											? d.messages[0]?.account.uuid ===
-											  session.items?.account.uuid
+										d.message
+											? d.message.account.id === session.items?.account.id
 											: false
 									}
 									// hasError={d.hasError}

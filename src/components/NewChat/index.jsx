@@ -16,8 +16,8 @@ const NewChat = ({ formControl, show, handleOk, handleCancel }) => {
 			С кем?
 			<form name="new_chat">
 				<Input
-					name="uuid"
-					value={formControl?.values?.uuid}
+					name="id"
+					value={formControl?.values?.id}
 					onChange={formControl?.handleChange}
 					placeholder="id"
 				/>

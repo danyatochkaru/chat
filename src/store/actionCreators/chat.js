@@ -38,14 +38,14 @@ export const selectChat = (id) => async (dispatch) => {
 	}
 };
 
-export const createNewChat = (uuid) => async (dispatch) => {
+export const createNewChat = (id) => async (dispatch) => {
 	try {
 		dispatch({
 			type: CHAT_ACTION_TYPES.FETCH,
 		});
 		const { data } = await api.post(`/chats`, {
 			type: "dialog",
-			accountId: uuid,
+			accountId: id,
 		});
 
 		dispatch({

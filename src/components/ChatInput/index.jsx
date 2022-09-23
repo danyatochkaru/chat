@@ -24,7 +24,7 @@ const ChatInput = ({ disabled }) => {
 			chatText: "",
 		},
 		onSubmit: (v) => {
-			sendMessage({ id: chat.selected.uuid, text: v.chatText });
+			sendMessage({ id: chat.selected.id, text: v.chatText });
 		},
 	});
 

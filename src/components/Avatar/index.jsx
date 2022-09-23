@@ -21,7 +21,13 @@ const AvatarComponent = ({ account, ...props }) => {
 			style={
 				!account?.avatar_url && {
 					backgroundColor:
-						userColors[Math.floor(isNaN(account.uuid.replace(/[^\d]/g, "")) ? 0 : account.uuid.replace(/[^\d]/g, "") % 10)],
+						userColors[
+							Math.floor(
+								isNaN(account.id.replace(/[^\d]/g, ""))
+									? 0
+									: account.id.replace(/[^\d]/g, "") % 10,
+							)
+						],
 				}
 			}
 			{...props}

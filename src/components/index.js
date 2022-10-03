@@ -7,3 +7,4 @@ export { default as AudioMessage } from "./AudioMessage";
 export { default as Avatar } from "./Avatar";
 export { default as ChatInput } from "./ChatInput";
 export { default as NewChat } from "./NewChat";
+export { default as AccountInfo } from "./AccountInfo";

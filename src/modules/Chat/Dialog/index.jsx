@@ -97,10 +97,17 @@ const Dialog = () => {
 											/>
 										);
 								})}
+								{/* <AudioMessage
+									key={"m.id"}
+									account={{ id: "qTest", username: "Test", avatar_url: null }}
+									audio="https://www.mfiles.co.uk/mp3-downloads/por-una-cabeza.mp3"
+									createdAt={Date.now()}
+									isMe={false}
+								/> */}
 								{selected?.id && isTyping && (
 									<Typing
 										accounts={[
-											selected?.accounts.find((a) => a.id !== items.id),
+											selected?.accounts.find((a) => a.id !== items.account.id),
 										]}
 									/>
 								)}

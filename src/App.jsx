@@ -2,14 +2,25 @@ import React from "react";
 
 import { Login, Registr, Dialogs } from "pages";
 import { useAction } from "hooks";
-import { Routes, Route, NavLink } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Empty = () => {
 	const { logout } = useAction();
+	const session = useSelector((state) => state.session);
+	const navigate = useNavigate();
+
+	// React.useEffect(() => {
+	// 	console.log("logout");
+	// }, [logout]);
+
+	React.useEffect(() => {
+		navigate(session.items ? "/chats" : "/signin");
+	}, [session]);
 
 	return (
 		<div className="empty">
-			<center>
+			{/* <center>
 				<h3>
 					<b>Coming soon</b>
 				</h3>
@@ -27,7 +38,7 @@ const Empty = () => {
 						<a onClick={logout}>Logout</a>
 					</li>
 				</nav>
-			</center>
+			</center> */}
 		</div>
 	);
 };

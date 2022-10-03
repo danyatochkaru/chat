@@ -20,7 +20,7 @@ import {
 	Spin,
 } from "antd";
 
-import { Dialog, NewChat } from "components";
+import { Dialog, NewChat, AccountInfo } from "components";
 import { useSelector } from "react-redux";
 import { useAction } from "hooks";
 import { useSearchParams } from "react-router-dom";
@@ -166,6 +166,7 @@ const Sidebar = ({ isSearch }) => {
 					/>
 				)}
 			</div>
+			<AccountInfo account={session.items?.account} />
 			<NewChat
 				show={showNewChat}
 				handleCancel={() => setShowNewChat(false)}

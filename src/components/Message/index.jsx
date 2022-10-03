@@ -2,7 +2,7 @@ import React from "react";
 import { format, formatDistanceToNow, formatRelative } from "date-fns";
 import ruLocale from "date-fns/locale/ru";
 import { Link } from "react-router-dom";
-import { Image, Popover, Skeleton } from "antd";
+import { Button, Image, List, Popover } from "antd";
 import classNames from "classnames";
 
 import "./Message.scss";
@@ -11,7 +11,6 @@ import { ReactComponent as ReadedIcon } from "assets/readed.svg";
 import { ReactComponent as SentIcon } from "assets/sent.svg";
 import { ReactComponent as ErrorSentIcon } from "assets/sending-error.svg";
 import { Avatar } from "components";
-import { LoadingOutlined } from "@ant-design/icons";
 
 const Message = ({
 	account,
@@ -28,7 +27,7 @@ const Message = ({
 				<Avatar account={account} />
 			</Link>
 			<div className="message__content">
-				{attachments?.length && (
+				{!attachments?.length && (
 					<div className="message__attachments">
 						{attachments?.length > 0 &&
 							attachments.map((item) => {
@@ -47,6 +46,14 @@ const Message = ({
 										return <></>;
 								}
 							})}
+						{/* <Image
+							key={"oasdoibsa"}
+							src={
+								"http://mobimg.b-cdn.net/v3/fetch/2c/2c38ec7c72e3d0094f591d6f735a3b8e.jpeg"
+							}
+							alt={""}
+							height="12rem"
+						/> */}
 					</div>
 				)}
 				{text && (
@@ -89,7 +96,18 @@ const Message = ({
 						))
 					)}
 					<Popover
-						content={<span>buttons</span>}
+						content={
+							<List
+								size="small"
+								split={false}
+								dataSource={[{ title: "Изменить" }, { title: "Удалить" }]}
+								renderItem={(item) => (
+									<List.Item>
+										<Button type="link">{item.title}</Button>
+									</List.Item>
+								)}
+							/>
+						}
 						trigger="click"
 						placement={isMe ? "left" : "right"}
 						arrowPointAtCenter

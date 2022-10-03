@@ -40,6 +40,7 @@ const LoginForm = () => {
 				size="large"
 				placeholder="Почта"
 				name="email"
+				type="email"
 				onChange={formik.handleChange}
 				value={formik.values.email}
 				status={formik.errors.email && formik.touched.email ? "error" : null}

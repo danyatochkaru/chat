@@ -2,17 +2,12 @@ import React from "react";
 
 import { Login, Registr, Dialogs } from "pages";
 import { useAction } from "hooks";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Empty = () => {
-	const { logout } = useAction();
 	const session = useSelector((state) => state.session);
 	const navigate = useNavigate();
-
-	// React.useEffect(() => {
-	// 	console.log("logout");
-	// }, [logout]);
 
 	React.useEffect(() => {
 		navigate(session.items ? "/chats" : "/signin");
@@ -58,8 +53,6 @@ function App() {
 			<Route path="/signup" element={<Registr />} />
 			<Route path="/chats/:id" element={<Dialogs />} />
 			<Route path="/chats" element={<Dialogs />} />
-			<Route path="/profile" element={<Empty />} />
-			<Route path="/settings" element={<Empty />} />
 			<Route path="*" element={<Empty />} />
 		</Routes>
 	);

@@ -37,7 +37,6 @@ const RegistrForm = () => {
 		},
 		validationSchema,
 		onSubmit: async (values) => {
-			alert(JSON.stringify(values, null, 2));
 			await registration(values);
 		},
 	});
@@ -101,7 +100,7 @@ const RegistrForm = () => {
 			</div>
 			<Input.Password
 				size="large"
-				placeholder="Пароль"
+				placeholder="Повтор пароля"
 				name="r_password"
 				onChange={formik.handleChange}
 				value={formik.values.r_password}

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { SidebarSection, DialogSection } from "modules";
+import { SettingsWindow } from "components";
 
 const Dialogs = () => {
 	const session = useSelector((state) => state.session);
@@ -19,6 +20,7 @@ const Dialogs = () => {
 		<main className="main_container">
 			<SidebarSection />
 			<DialogSection />
+			<SettingsWindow />
 		</main>
 	);
 };

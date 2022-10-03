@@ -100,11 +100,17 @@ const Message = ({
 							<List
 								size="small"
 								split={false}
-								dataSource={[{ title: "Изменить" }, { title: "Удалить" }]}
+								dataSource={[
+									{ key: "change", title: "Изменить" },
+									{ key: "remove", title: "Удалить", danger: true },
+								]}
 								renderItem={(item) => (
-									<List.Item>
-										<Button type="link">{item.title}</Button>
-									</List.Item>
+									<>
+										<Button key={item.key} type="link" danger={item.danger}>
+											{item.title}
+										</Button>
+										<br />
+									</>
 								)}
 							/>
 						}

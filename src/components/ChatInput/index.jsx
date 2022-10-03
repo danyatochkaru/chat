@@ -12,6 +12,7 @@ import { Button, Input } from "antd";
 import { useFormik } from "formik";
 import { useAction } from "../../hooks";
 import { useSelector } from "react-redux";
+import UploadFiles from "../UploadFiles";
 
 const ChatInput = ({ disabled }) => {
 	const inputRef = React.useRef();
@@ -60,6 +61,7 @@ const ChatInput = ({ disabled }) => {
 
 	return (
 		<form className={"dialog__input"} onSubmit={formik.handleSubmit}>
+			<UploadFiles />
 			{emojiPickerVisible && (
 				<span className={"dialog__emoji_piker"}>
 					<Picker
@@ -81,7 +83,6 @@ const ChatInput = ({ disabled }) => {
 				icon={<SmileOutlined />}
 				onClick={() => setEmojiPickerVisible(!emojiPickerVisible)}
 			/>
-
 			<Input
 				placeholder="Введите текст сообщения..."
 				bordered={false}

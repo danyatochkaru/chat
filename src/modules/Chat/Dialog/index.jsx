@@ -42,7 +42,7 @@ const Dialog = () => {
 						{selected?.accounts.map((a) => {
 							if (items?.account.id && a.id !== items.account.id)
 								return (
-									<span>
+									<span key={a.id}>
 										<div className="dialog__header-avatar">
 											<Link to={a?.id ? `/profile/${a?.id}` : `/chats`}>
 												<Badge dot={a?.online} color="green" offset={[-4, 28]}>

@@ -1,12 +1,14 @@
-import { Button, Input, Modal } from "antd";
+import { Button, Input, Modal, Upload } from "antd";
 import React from "react";
 import { Avatar } from "../index.js";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import classNames from "classnames";
 import { useSelector } from "react-redux";
+import "./SettingsWindow.scss";
+import { DeleteOutlined, PictureOutlined } from "@ant-design/icons";
 
-export default function SettingsWindow() {
+export default function SettingsWindow({ visible, hide }) {
 	const session = useSelector((state) => state.session);
 
 	const validationSchema = Yup.object().shape({
@@ -32,106 +34,124 @@ export default function SettingsWindow() {
 			alert(JSON.stringify(values, null, 2));
 		},
 	});
+	const close = () => {
+		formik.resetForm();
+		hide();
+	};
+
+	const uploadFile = (options) => {
+		console.log(options);
+		alert("ok");
+	};
 
 	return (
 		<Modal
 			title={"Настройки профиля"}
 			okText={"Сохранить"}
+			onOk={formik.submitForm}
 			cancelText={"Отмена"}
-			destroyOnClose
+			onCancel={close}
+			destroyOnClose={true}
 			centered
-			visible
+			visible={visible}
 		>
-			<span>
-				<Avatar
-					size={64}
-					account={{ id: "loh", username: "admin", avatar_url: null }}
-				/>
-				<span>
-					<Button>Изменить</Button>
-					<Button danger>Удалить</Button>
-				</span>
-			</span>
-			<form>
-				<Input
-					size="large"
-					placeholder="Почта"
-					name="email"
-					onChange={formik.handleChange}
-					value={formik.values.email}
-					status={formik.errors.email && formik.touched.email ? "error" : null}
-				/>
-				<div
-					className={classNames("error", {
-						"error--active": formik.errors.email && formik.touched.email,
-					})}
-				>
-					{formik.errors.email && formik.touched.email
-						? formik.errors.email
-						: null}
+			<div className="settings">
+				<div className="settings__photo">
+					<Avatar size={96} account={session.items?.account} />
+					<div className="settings__photo__buttons">
+						<Upload showUploadList={false} customRequest={uploadFile}>
+							<Button shape="round" icon={<PictureOutlined />} type="primary">
+								Загрузить фото
+							</Button>
+						</Upload>
+						<Button shape="round" danger icon={<DeleteOutlined />} />
+					</div>
 				</div>
-				<Input
-					size="large"
-					placeholder="Отображаемое имя"
-					name="username"
-					onChange={formik.handleChange}
-					value={formik.values.username}
-					status={
-						formik.errors.username && formik.touched.username ? "error" : null
-					}
-				/>
-				<div
-					className={classNames("error", {
-						"error--active": formik.errors.username && formik.touched.username,
-					})}
-				>
-					{formik.errors.username && formik.touched.username
-						? formik.errors.username
-						: null}
-				</div>
-				<Input.Password
-					size="large"
-					placeholder="Новый пароль"
-					name="password"
-					onChange={formik.handleChange}
-					value={formik.values.password}
-					status={
-						formik.errors.password && formik.touched.password ? "error" : null
-					}
-				/>
-				<div
-					className={classNames("error", {
-						"error--active": formik.errors.password && formik.touched.password,
-					})}
-				>
-					{formik.errors.password && formik.touched.password
-						? formik.errors.password
-						: null}
-				</div>
-				<Input.Password
-					size="large"
-					placeholder="Старый пароль"
-					name="old_password"
-					required
-					onChange={formik.handleChange}
-					value={formik.values.old_password}
-					status={
-						formik.errors.old_password && formik.touched.old_password
-							? "error"
-							: null
-					}
-				/>
-				<div
-					className={classNames("error", {
-						"error--active":
-							formik.errors.old_password && formik.touched.old_password,
-					})}
-				>
-					{formik.errors.old_password && formik.touched.old_password
-						? formik.errors.old_password
-						: null}
-				</div>
-			</form>
+				<form>
+					<Input
+						size="large"
+						placeholder="Отображаемое имя"
+						name="username"
+						onChange={formik.handleChange}
+						value={formik.values.username}
+						status={
+							formik.errors.username && formik.touched.username ? "error" : null
+						}
+					/>
+					<div
+						className={classNames("error", {
+							"error--active":
+								formik.errors.username && formik.touched.username,
+						})}
+					>
+						{formik.errors.username && formik.touched.username
+							? formik.errors.username
+							: null}
+					</div>
+					<Input
+						size="large"
+						placeholder="Почта"
+						name="email"
+						onChange={formik.handleChange}
+						value={formik.values.email}
+						status={
+							formik.errors.email && formik.touched.email ? "error" : null
+						}
+					/>
+					<div
+						className={classNames("error", {
+							"error--active": formik.errors.email && formik.touched.email,
+						})}
+					>
+						{formik.errors.email && formik.touched.email
+							? formik.errors.email
+							: null}
+					</div>
+					<Input.Password
+						size="large"
+						placeholder="Новый пароль"
+						name="password"
+						onChange={formik.handleChange}
+						value={formik.values.password}
+						status={
+							formik.errors.password && formik.touched.password ? "error" : null
+						}
+					/>
+					<div
+						className={classNames("error", {
+							"error--active":
+								formik.errors.password && formik.touched.password,
+						})}
+					>
+						{formik.errors.password && formik.touched.password
+							? formik.errors.password
+							: null}
+					</div>
+					<Input.Password
+						size="large"
+						placeholder="Старый пароль"
+						name="old_password"
+						required
+						onChange={formik.handleChange}
+						value={formik.values.old_password}
+						status={
+							formik.errors.old_password && formik.touched.old_password
+								? "error"
+								: null
+						}
+					/>
+					<div
+						className={classNames("error", {
+							"error--active":
+								formik.errors.old_password && formik.touched.old_password,
+						})}
+					>
+						{formik.errors.old_password && formik.touched.old_password
+							? formik.errors.old_password
+							: null}
+					</div>
+				</form>
+			</div>
 		</Modal>
 	);
 }

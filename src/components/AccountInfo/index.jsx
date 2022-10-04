@@ -6,7 +6,7 @@ import "./AccountInfo.scss";
 import { Avatar } from "components";
 import { useAction } from "hooks";
 
-export default function AccountInfo({ account }) {
+export default function AccountInfo({ account, showSettingsWindow }) {
 	const { logout } = useAction();
 
 	return account?.id ? (
@@ -26,6 +26,7 @@ export default function AccountInfo({ account }) {
 				type="text"
 				block
 				className="settings_btn__button"
+				onClick={showSettingsWindow}
 			>
 				Настройки
 			</Button>

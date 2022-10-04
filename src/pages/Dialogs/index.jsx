@@ -16,11 +16,19 @@ const Dialogs = () => {
 		}
 	}, [session]);
 
+	const [settingsWindowVisible, setSettingsWindowVisible] =
+		React.useState(false);
+
 	return (
 		<main className="main_container">
-			<SidebarSection />
+			<SidebarSection
+				showSettingsWindow={() => setSettingsWindowVisible(true)}
+			/>
 			<DialogSection />
-			<SettingsWindow />
+			<SettingsWindow
+				visible={settingsWindowVisible}
+				hide={() => setSettingsWindowVisible(false)}
+			/>
 		</main>
 	);
 };

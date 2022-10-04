@@ -26,7 +26,7 @@ import { useAction } from "hooks";
 import { useSearchParams } from "react-router-dom";
 import { useFormik } from "formik";
 
-const Sidebar = ({ isSearch }) => {
+const Sidebar = ({ isSearch, showSettingsWindow }) => {
 	const [showNewChat, setShowNewChat] = React.useState(false);
 	const [showNotify, setShowNotify] = React.useState(false);
 	const chat = useSelector((store) => store.chat);
@@ -166,7 +166,10 @@ const Sidebar = ({ isSearch }) => {
 					/>
 				)}
 			</div>
-			<AccountInfo account={session.items?.account} />
+			<AccountInfo
+				account={session.items?.account}
+				showSettingsWindow={showSettingsWindow}
+			/>
 			<NewChat
 				show={showNewChat}
 				handleCancel={() => setShowNewChat(false)}

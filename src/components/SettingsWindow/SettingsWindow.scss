@@ -1,0 +1,40 @@
+.settings {
+	display: flex;
+	flex-direction: column;
+	row-gap: 18px;
+
+	&__photo {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		gap: 8px;
+
+		&__buttons {
+			height: 100%;
+			display: flex;
+			gap: 4px;
+		}
+
+		.ant-avatar {
+			box-shadow: 0 0 25px #20202066;
+		}
+	}
+
+	form {
+		display: flex;
+		flex-direction: column;
+
+		.error {
+			height: 20px;
+			color: red;
+			opacity: 0.01;
+			transition: 0.3s;
+			margin-bottom: 4px;
+
+			&--active {
+				opacity: 1;
+			}
+		}
+	}
+}

@@ -22,7 +22,7 @@ const Dialog = () => {
 	const { items } = useSelector((state) => state.session);
 	const message = useSelector((state) => state.message);
 	const { fetchMessagesByChatId } = useAction();
-	const isTyping = Date.now() % 2 === 0;
+	const isTyping = false && Date.now() % 2 === 0;
 	const [searchParams] = useSearchParams();
 
 	React.useEffect(() => {

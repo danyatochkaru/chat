@@ -26,7 +26,7 @@ export default function messageReducer(
 			return {
 				...state,
 				loading: false,
-				items: payload,
+				items: payload && { ...payload, rows: payload.rows.reverse() },
 				error: null,
 			};
 		}
@@ -35,6 +35,7 @@ export default function messageReducer(
 				...state,
 				loading: false,
 				error: payload,
+				items: null,
 			};
 		}
 		default:

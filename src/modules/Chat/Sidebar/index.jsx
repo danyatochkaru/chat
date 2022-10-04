@@ -35,9 +35,9 @@ const Sidebar = ({ isSearch }) => {
 
 	const [searchParams, setSearchParams] = useSearchParams();
 
-	React.useEffect(() => {
-		fetchChats();
-	}, []);
+	// React.useEffect(() => {
+	// 	fetchChats();
+	// }, []);
 
 	React.useEffect(() => {
 		if (searchParams.has("id")) {
@@ -45,9 +45,9 @@ const Sidebar = ({ isSearch }) => {
 		} else selectChat();
 	}, [searchParams.get("id"), chat.items]);
 
-	React.useEffect(() => {
-		if (searchParams.has("window")) console.log(searchParams.get("window"));
-	}, [searchParams.get("window")]);
+	// React.useEffect(() => {
+	// 	if (searchParams.has("window")) console.log(searchParams.get("window"));
+	// }, [searchParams.get("window")]);
 
 	// React.useLayoutEffect(() => {
 	// 	let title = "Чат";
@@ -84,18 +84,6 @@ const Sidebar = ({ isSearch }) => {
 		else searchParams.delete("window");
 		setSearchParams(searchParams);
 	};
-
-	if (chat.loading)
-		return (
-			<section className="sidebar">
-				<Spin
-					indicator={<LoadingOutlined spin />}
-					className="dialog__center"
-					size="large"
-					tip="Загрузка списка чатов..."
-				/>
-			</section>
-		);
 
 	return (
 		<section className="sidebar">
@@ -137,41 +125,50 @@ const Sidebar = ({ isSearch }) => {
 					bordered={false}
 				/>
 			</div>
-			<div className="sidebar__dialogs_list">
-				{chat.items?.count ? (
-					<>
-						{chat.items?.count > 0 &&
-							chat.items?.rows.map((d) => (
-								<Dialog
-									key={d.id}
-									account={d.accounts.find(
-										(a) => a.id !== session.items?.account.id,
-									)}
-									id={d.id}
-									message={d.message || { text: <i>Пусто</i> }}
-									unread_count={d.unread_count}
-									isActive={d?.id === chat.selected?.id}
-									isMe={
-										d.message
-											? d.message.account.id === session.items?.account.id
-											: false
-									}
-									// hasError={d.hasError}
-								/>
-							))}
-					</>
-				) : isSearch ? (
-					<Empty
-						image={Empty.PRESENTED_IMAGE_SIMPLE}
-						description="Поиск завершился пустым результатом"
-					/>
-				) : (
-					<Empty
-						image={Empty.PRESENTED_IMAGE_SIMPLE}
-						description="Список пуст"
-					/>
-				)}
-			</div>
+			{chat.loading ? (
+				<Spin
+					indicator={<LoadingOutlined spin />}
+					className="dialog__center"
+					size="large"
+					tip="Загрузка списка чатов..."
+				/>
+			) : (
+				<div className="sidebar__dialogs_list">
+					{chat.items?.count ? (
+						<>
+							{chat.items?.count > 0 &&
+								chat.items?.rows.map((d) => (
+									<Dialog
+										key={d.id}
+										account={d.accounts.find(
+											(a) => a.id !== session.items?.account.id,
+										)}
+										id={d.id}
+										message={d.message || { text: <i>Пусто</i> }}
+										unread_count={d.unread_count}
+										isActive={d?.id === chat.selected?.id}
+										isMe={
+											d.message
+												? d.message.account.id === session.items?.account.id
+												: false
+										}
+										// hasError={d.hasError}
+									/>
+								))}
+						</>
+					) : isSearch ? (
+						<Empty
+							image={Empty.PRESENTED_IMAGE_SIMPLE}
+							description="Поиск завершился пустым результатом"
+						/>
+					) : (
+						<Empty
+							image={Empty.PRESENTED_IMAGE_SIMPLE}
+							description="Список пуст"
+						/>
+					)}
+				</div>
+			)}
 			<AccountInfo
 				account={session.items?.account}
 				showSettingsWindow={changeSettingsView}

@@ -1,5 +1,6 @@
 import { CHAT_ACTION_TYPES } from "../reducers/chat.js";
 import api from "./api.js";
+import socket from "./socket.js";
 
 export const fetchChats = () => async (dispatch) => {
 	try {
@@ -24,6 +25,7 @@ export const fetchChats = () => async (dispatch) => {
 
 export const selectChat = (id) => async (dispatch) => {
 	try {
+		socket.emit("DIALOGS:JOIN", id);
 		dispatch({
 			type: CHAT_ACTION_TYPES.SET_SELECTED,
 			payload: id,

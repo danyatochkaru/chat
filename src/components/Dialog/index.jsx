@@ -9,6 +9,8 @@ import classNames from "classnames";
 import Badge from "antd/lib/badge";
 import { Link, useSearchParams } from "react-router-dom";
 import { Avatar } from "components";
+import socket from "../../store/actionCreators/socket";
+import { useAction } from "hooks";
 
 const Dialog = ({
 	id,
@@ -20,6 +22,20 @@ const Dialog = ({
 	isActive,
 }) => {
 	const [search, setSearch] = useSearchParams();
+	const { fetchChats } = useAction();
+	
+	React.useEffect(() => {
+		// fetchChats();
+
+		// socket.on("SERVER:DIALOG_CREATED", fetchChats);
+		// socket.on("SERVER:NEW_MESSAGE", fetchChats);
+		// // socket.on("SERVER:MESSAGES_READED", updateReadedStatus);
+		// return () => {
+		// 	socket.removeListener("SERVER:DIALOG_CREATED", fetchChats);
+		// 	socket.removeListener("SERVER:NEW_MESSAGE", fetchChats);
+		// };
+	}, []);
+
 	return (
 		<div
 			className={classNames("dialog_item", {

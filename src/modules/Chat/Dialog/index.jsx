@@ -83,20 +83,18 @@ const Dialog = () => {
 								{message.items?.rows.map((m) => {
 									if (m.type === "simple")
 										return (
-											<>
-												<Message
-													// {...m}
-													key={m.id}
-													id={m.id}
-													account={m.account}
-													text={m.text}
-													unread={m.unread}
-													createdAt={m.createdAt}
-													isMe={m.account.id === items.account.id}
-													hasError={false}
-													attachments={m.attachments}
-												/>
-											</>
+											<Message
+												// {...m}
+												key={m.id}
+												id={m.id}
+												account={m.account}
+												text={m.text}
+												unread={m.unread}
+												createdAt={m.createdAt}
+												isMe={m.account.id === items.account.id}
+												hasError={false}
+												attachments={m.attachments}
+											/>
 										);
 									if (m.type === "audio")
 										return (

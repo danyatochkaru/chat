@@ -38,29 +38,30 @@ const Dialogs = () => {
 
 	React.useEffect(() => {
 		fetchChats();
-		if (!socketRef.current) {
-			socketRef.current = io("https://chat.danyatochka.ru", {
-				withCredentials: true,
-				transportOptions: {
-					polling: {
-						extraHeaders: {
-							"Authorization": "Bearer " + localStorage.getItem("token"),
-						},
-					},
-				},
-				transports: ["websocket"],
-			});
-		}
-		if (searchParams.has("id")) {
-			socketRef.current.emit("CHAT:JOIN", searchParams.get("id"));
-			socketRef.current.on("CHAT:NEW_MESSAGE", (message) => {
-				console.log(message);
-				fetchMessagesByChatId(searchParams.get("id"));
-			});
-		}
+
+		socketRef.current = io("https://chat.danyatochka.ru", {
+			withCredentials: true,
+			autoConnect: true,
+			transports: ["websocket"],
+		});
+
 		return () => {
 			socketRef.current && socketRef.current.close();
 		};
+	}, []);
+
+	React.useEffect(() => {
+		if (searchParams.has("id")) {
+			socketRef.current.emit("CHAT:JOIN", searchParams.get("id"));
+		}
+
+		socketRef.current.on("CHAT:NEW_MESSAGE", (message) => {
+			console.log(message);
+			fetchMessagesByChatId(searchParams.get("id"));
+		});
+
+		socketRef.current.on("connect", () => console.log("connect"));
+		socketRef.current.on("disconnect", () => console.log("disconnect"));
 	}, [searchParams.get("id")]);
 
 	return (

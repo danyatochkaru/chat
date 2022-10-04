@@ -125,7 +125,7 @@ const Sidebar = ({ isSearch }) => {
 					bordered={false}
 				/>
 			</div>
-			{chat.loading ? (
+			{chat.loading && !chat.items ? (
 				<Spin
 					indicator={<LoadingOutlined spin />}
 					className="dialog__center"

@@ -7,7 +7,7 @@ export const fetchMessagesByChatId = (id) => async (dispatch) => {
 			dispatch({
 				type: MESSAGE_ACTION_TYPES.FETCH,
 			});
-			const { data } = await api.get(`/chats/${id}/messages`);
+			const { data } = await api.get(`/chats/${id}/messages?limit=100`);
 
 			dispatch({
 				type: MESSAGE_ACTION_TYPES.FETCH_SUCCESS,

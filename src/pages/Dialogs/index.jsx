@@ -57,7 +57,7 @@ const Dialogs = () => {
 
 		socketRef.current.on("CHAT:NEW_MESSAGE", (message) => {
 			fetchChats();
-			if (searchParams.get("id") == message.chatId) {
+			if (searchParams.has("id") && searchParams.get("id") == message.chatId) {
 				fetchMessagesByChatId(searchParams.get("id"));
 			}
 		});

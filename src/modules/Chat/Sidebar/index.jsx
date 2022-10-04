@@ -35,37 +35,39 @@ const Sidebar = ({ isSearch }) => {
 
 	const [searchParams, setSearchParams] = useSearchParams();
 
-	// React.useEffect(() => {
-	// 	fetchChats();
-	// }, []);
+	const [items, setItems] = React.useState(null);
 
 	React.useEffect(() => {
+		/* if (items != chat.items?.rows && searchParams.has("id")) {
+			selectChat(searchParams.get("id"));
+		} else {
+			console.log("selected not by search");
+			selectChat();
+		}
+		setItems(chat.items?.rows); */
+
 		if (searchParams.has("id")) {
 			selectChat(searchParams.get("id"));
-		} else selectChat();
+		}
 	}, [searchParams.get("id"), chat.items]);
 
-	// React.useEffect(() => {
-	// 	if (searchParams.has("window")) console.log(searchParams.get("window"));
-	// }, [searchParams.get("window")]);
+	React.useLayoutEffect(() => {
+		let title = "Чат";
 
-	// React.useLayoutEffect(() => {
-	// 	let title = "Чат";
+		if (chat.selected) {
+			const account = chat.selected?.accounts.find(
+				(a) => a.id !== session.items?.account.id,
+			);
+			title = `${
+				chat.selected.unread_count &&
+				chat.selected.messages[0].account.id !== session.items?.account.id
+					? `(${chat.selected.unread_count}) `
+					: ""
+			}${`${account?.username} - `}Чат`;
+		}
 
-	// 	if (chat.selected) {
-	// 		const account = chat.selected?.accounts.find(
-	// 			(a) => a.id !== session.items?.account.id,
-	// 		);
-	// 		title = `${
-	// 			chat.selected.unread_count &&
-	// 			chat.selected.messages[0].account.id !== session.items?.account.id
-	// 				? `(${chat.selected.unread_count}) `
-	// 				: ""
-	// 		}${`${account?.username} - `}Чат`;
-	// 	}
-
-	// 	window.document.title = title;
-	// }, [chat.selected?.id]);
+		window.document.title = title;
+	}, [chat.selected?.id]);
 
 	const formik = useFormik({
 		initialValues: {

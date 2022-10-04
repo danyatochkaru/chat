@@ -10,3 +10,4 @@ export { default as NewChat } from "./NewChat";
 export { default as AccountInfo } from "./AccountInfo";
 export { default as UploadFiles } from "./UploadFiles";
 export { default as SettingsWindow } from "./SettingsWindow";
+export { default as MessageEdit } from "./MessageEdit";

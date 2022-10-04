@@ -10,9 +10,10 @@ import { ReactComponent as MenuIcon } from "assets/menu-dots.svg";
 import { ReactComponent as ReadedIcon } from "assets/readed.svg";
 import { ReactComponent as SentIcon } from "assets/sent.svg";
 import { ReactComponent as ErrorSentIcon } from "assets/sending-error.svg";
-import { Avatar } from "components";
+import { Avatar, MessageEdit } from "components";
 
 const Message = ({
+	id,
 	account,
 	text,
 	unread,
@@ -21,6 +22,8 @@ const Message = ({
 	isMe,
 	hasError,
 }) => {
+	const [edit, setEdit] = React.useState({ type: "edit", visible: false });
+	const [menuShow, setMenuShow] = React.useState(false)
 	return (
 		<div className={classNames("message", { "message--self": isMe })}>
 			<Link to={`/profile/${account?.id}`} className="message__avatar">
@@ -100,13 +103,37 @@ const Message = ({
 							<List
 								size="small"
 								split={false}
-								dataSource={[
-									{ key: "change", title: "Изменить" },
-									{ key: "remove", title: "Удалить", danger: true },
-								]}
+								dataSource={
+									isMe
+										? [
+												{
+													key: "change",
+													title: "Изменить",
+													onClick: () =>
+														setEdit({ ...edit, type: "edit", visible: true }),
+												},
+												{
+													key: "remove",
+													title: "Удалить",
+													danger: true,
+													onClick: () =>
+														setEdit({ ...edit, type: "delete", visible: true }),
+												},
+										  ]
+										: [
+												{ ket: "reply", title: "Ответить" },
+												{
+													key: "remove",
+													title: "Удалить",
+													danger: true,
+													onClick: () =>
+														setEdit({ ...edit, type: "delete", visible: true }),
+												},
+										  ]
+								}
 								renderItem={(item) => (
 									<>
-										<Button key={item.key} type="link" danger={item.danger}>
+										<Button type="link" {...item}>
 											{item.title}
 										</Button>
 										<br />
@@ -114,7 +141,7 @@ const Message = ({
 								)}
 							/>
 						}
-						trigger="click"
+						// trigger="click"
 						placement={isMe ? "left" : "right"}
 						arrowPointAtCenter
 					>
@@ -122,6 +149,13 @@ const Message = ({
 					</Popover>
 				</span>
 			</div>
+			<MessageEdit
+				text={text}
+				id={id}
+				type={edit.type}
+				visible={edit.visible}
+				hide={() => setEdit({ ...edit, visible: false })}
+			/>
 		</div>
 	);
 };

@@ -60,11 +60,11 @@ export default function SettingsWindow({ visible, hide }) {
 					<Avatar size={96} account={session.items?.account} />
 					<div className="settings__photo__buttons">
 						<Upload showUploadList={false} customRequest={uploadFile}>
-							<Button shape="round" icon={<PictureOutlined />} type="primary">
+							<Button icon={<PictureOutlined />} type="primary">
 								Загрузить фото
 							</Button>
 						</Upload>
-						<Button shape="round" danger icon={<DeleteOutlined />} />
+						<Button danger icon={<DeleteOutlined />} />
 					</div>
 				</div>
 				<form>

@@ -5,9 +5,16 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import "./Dialog.scss";
 
-import { Message, AudioMessage, Typing, Avatar, ChatInput } from "components";
+import {
+	Message,
+	AudioMessage,
+	Typing,
+	Avatar,
+	ChatInput,
+	MessageEdit,
+} from "components";
 import { ReactComponent as MenuIcon } from "assets/menu-dots.svg";
-import { useAction } from "../../../hooks";
+import { useAction } from "hooks";
 
 const Dialog = () => {
 	const messagesRef = React.useRef();
@@ -76,17 +83,20 @@ const Dialog = () => {
 								{message.items?.rows.map((m) => {
 									if (m.type === "simple")
 										return (
-											<Message
-												// {...m}
-												key={m.id}
-												account={m.account}
-												text={m.text}
-												unread={m.unread}
-												createdAt={m.createdAt}
-												isMe={m.account.id === items.account.id}
-												hasError={false}
-												attachments={m.attachments}
-											/>
+											<>
+												<Message
+													// {...m}
+													key={m.id}
+													id={m.id}
+													account={m.account}
+													text={m.text}
+													unread={m.unread}
+													createdAt={m.createdAt}
+													isMe={m.account.id === items.account.id}
+													hasError={false}
+													attachments={m.attachments}
+												/>
+											</>
 										);
 									if (m.type === "audio")
 										return (

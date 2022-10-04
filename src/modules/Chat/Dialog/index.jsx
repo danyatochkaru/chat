@@ -71,7 +71,7 @@ const Dialog = () => {
 						/>
 					</div>
 					<div className="dialog__messages" ref={messagesRef}>
-						{message.loading ? (
+						{message.loading && !message.items ? (
 							<Spin
 								indicator={<LoadingOutlined spin />}
 								className="dialog__center"

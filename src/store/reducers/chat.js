@@ -48,6 +48,7 @@ export default function chatReducer(state = initialState, { type, payload }) {
 			};
 		}
 		case CHAT_ACTION_TYPES.SET_SELECTED: {
+			// debugger
 			if (state.items?.count)
 				return {
 					...state,

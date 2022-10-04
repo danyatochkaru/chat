@@ -31,7 +31,7 @@ const Sidebar = ({ isSearch }) => {
 	const [showNotify, setShowNotify] = React.useState(false);
 	const chat = useSelector((store) => store.chat);
 	const session = useSelector((state) => state.session);
-	const { fetchChats, selectChat, createNewChat } = useAction();
+	const { selectChat, createNewChat } = useAction();
 
 	const [searchParams, setSearchParams] = useSearchParams();
 

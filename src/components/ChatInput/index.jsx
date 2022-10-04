@@ -26,6 +26,7 @@ const ChatInput = ({ disabled }) => {
 		},
 		onSubmit: (v) => {
 			sendMessage({ id: chat.selected.id, text: v.chatText });
+			formik.resetForm();
 		},
 	});
 

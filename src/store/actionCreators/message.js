@@ -33,16 +33,17 @@ export const sendMessage =
 	({ id, type = "simple", text, attachments }) =>
 	async (dispatch) => {
 		try {
-			const { data } = await api.post(`/chats/${id}/messages`, {
+			/* const { data } =  */ await api.post(`/chats/${id}/messages`, {
 				text,
 				type,
 				attachments,
 			});
 
-			dispatch({
-				type: MESSAGE_ACTION_TYPES.PUSH_MESSAGE,
-				payload: data,
-			});
+			fetchMessagesByChatId(id);
+			// dispatch({
+			// 	type: MESSAGE_ACTION_TYPES.PUSH_MESSAGE,
+			// 	payload: data,
+			// });
 		} catch (error) {
 			console.error(error);
 

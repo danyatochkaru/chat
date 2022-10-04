@@ -26,14 +26,14 @@ import { useAction } from "hooks";
 import { useSearchParams } from "react-router-dom";
 import { useFormik } from "formik";
 
-const Sidebar = ({ isSearch, showSettingsWindow }) => {
+const Sidebar = ({ isSearch }) => {
 	const [showNewChat, setShowNewChat] = React.useState(false);
 	const [showNotify, setShowNotify] = React.useState(false);
 	const chat = useSelector((store) => store.chat);
 	const session = useSelector((state) => state.session);
 	const { fetchChats, selectChat, createNewChat } = useAction();
 
-	const [searchParams] = useSearchParams();
+	const [searchParams, setSearchParams] = useSearchParams();
 
 	React.useEffect(() => {
 		fetchChats();
@@ -77,6 +77,12 @@ const Sidebar = ({ isSearch, showSettingsWindow }) => {
 		debugger;
 		if (formik.values.id.length) createNewChat(formik.values.id);
 		setShowNewChat(false);
+	};
+
+	const changeSettingsView = (flag = true) => {
+		if (flag) searchParams.set("window", "settings");
+		else searchParams.delete("window");
+		setSearchParams(searchParams);
 	};
 
 	if (chat.loading)
@@ -168,7 +174,7 @@ const Sidebar = ({ isSearch, showSettingsWindow }) => {
 			</div>
 			<AccountInfo
 				account={session.items?.account}
-				showSettingsWindow={showSettingsWindow}
+				showSettingsWindow={changeSettingsView}
 			/>
 			<NewChat
 				show={showNewChat}

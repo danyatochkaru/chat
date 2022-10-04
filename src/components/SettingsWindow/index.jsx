@@ -7,9 +7,17 @@ import classNames from "classnames";
 import { useSelector } from "react-redux";
 import "./SettingsWindow.scss";
 import { DeleteOutlined, PictureOutlined } from "@ant-design/icons";
+import { useSearchParams } from "react-router-dom";
 
-export default function SettingsWindow({ visible, hide }) {
+export default function SettingsWindow({ visible }) {
 	const session = useSelector((state) => state.session);
+
+	const [searchParams, setSearchParams] = useSearchParams();
+	const changeSettingsView = (flag = true) => {
+		if (flag) searchParams.set("window", "settings");
+		else searchParams.delete("window");
+		setSearchParams(searchParams);
+	};
 
 	const validationSchema = Yup.object().shape({
 		username: Yup.string()
@@ -36,7 +44,7 @@ export default function SettingsWindow({ visible, hide }) {
 	});
 	const close = () => {
 		formik.resetForm();
-		hide();
+		changeSettingsView(false);
 	};
 
 	const uploadFile = (options) => {

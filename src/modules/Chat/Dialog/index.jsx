@@ -22,8 +22,8 @@ const Dialog = () => {
 	const { items } = useSelector((state) => state.session);
 	const message = useSelector((state) => state.message);
 	const { fetchMessagesByChatId } = useAction();
-	const [searchParams] = useSearchParams();
 	const isTyping = Date.now() % 2 === 0;
+	const [searchParams] = useSearchParams();
 
 	React.useEffect(() => {
 		if (searchParams.has("id")) fetchMessagesByChatId(searchParams.get("id"));

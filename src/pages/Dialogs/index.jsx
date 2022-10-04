@@ -1,7 +1,7 @@
 import React from "react";
 import "./Dialogs.scss";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { SidebarSection, DialogSection } from "modules";
 import { SettingsWindow } from "components";
@@ -19,16 +19,22 @@ const Dialogs = () => {
 	const [settingsWindowVisible, setSettingsWindowVisible] =
 		React.useState(false);
 
+	const [searchParams] = useSearchParams();
+
+	React.useEffect(() => {
+		if (searchParams.has("window")) {
+			if (searchParams.get("window") == "settings")
+				setSettingsWindowVisible(true);
+		} else {
+			setSettingsWindowVisible(false);
+		}
+	}, [searchParams.get("window")]);
+
 	return (
 		<main className="main_container">
-			<SidebarSection
-				showSettingsWindow={() => setSettingsWindowVisible(true)}
-			/>
+			<SidebarSection />
 			<DialogSection />
-			<SettingsWindow
-				visible={settingsWindowVisible}
-				hide={() => setSettingsWindowVisible(false)}
-			/>
+			<SettingsWindow visible={settingsWindowVisible} />
 		</main>
 	);
 };

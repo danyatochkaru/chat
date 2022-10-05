@@ -19,6 +19,7 @@ export default function messageReducer(
 			return {
 				...state,
 				loading: true,
+				items: null,
 				error: null,
 			};
 		}
@@ -26,7 +27,7 @@ export default function messageReducer(
 			return {
 				...state,
 				loading: false,
-				items: payload ? { ...payload, rows: payload.rows.reverse() } : null,
+				items: payload ? { ...payload, rows: payload.rows.reverse() } : [],
 				error: null,
 			};
 		}

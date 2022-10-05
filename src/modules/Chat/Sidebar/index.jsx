@@ -23,7 +23,7 @@ import {
 import { Dialog, NewChat, AccountInfo } from "components";
 import { useSelector } from "react-redux";
 import { useAction } from "hooks";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useFormik } from "formik";
 
 const Sidebar = ({ isSearch }) => {
@@ -35,15 +35,14 @@ const Sidebar = ({ isSearch }) => {
 
 	const [searchParams, setSearchParams] = useSearchParams();
 
-	const { id } = useParams();
-
 	React.useEffect(() => {
-		if (id) {
-			selectChat(id);
+		console.log(searchParams.get("id"));
+		if (searchParams.has("id")) {
+			selectChat(searchParams.get("id"));
 		} else {
 			selectChat();
 		}
-	}, [id]);
+	}, [searchParams.get("id")]);
 
 	// React.useLayoutEffect(() => {
 	// 	let title = "Чат";

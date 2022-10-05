@@ -48,7 +48,7 @@ export default function SettingsWindow({ visible }) {
 	};
 
 	const uploadFile = (options) => {
-		console.log(options);
+		// console.log(options);
 		alert("ok");
 	};
 

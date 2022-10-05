@@ -7,7 +7,7 @@ import ruLocale from "date-fns/locale/ru";
 import "./Dialog.scss";
 import classNames from "classnames";
 import Badge from "antd/lib/badge";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Avatar } from "components";
 
 const Dialog = ({
@@ -21,17 +21,14 @@ const Dialog = ({
 }) => {
 	const [search, setSearch] = useSearchParams();
 
-	const navigate = useNavigate();
-
 	return (
 		<div
 			className={classNames("dialog_item", {
 				"dialog_item--active": isActive,
 			})}
 			onClick={() => {
-				// search.set("id", id);
-				// setSearch(search);
-				navigate("/chats/" + id);
+				search.set("id", id);
+				setSearch(search);
 			}}
 		>
 			<div className="dialog_item__avatar">

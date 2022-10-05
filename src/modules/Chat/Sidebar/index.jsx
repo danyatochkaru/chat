@@ -53,7 +53,7 @@ const Sidebar = ({ isSearch }) => {
 			);
 			title = `${
 				chat.selected.unread_count &&
-				chat.selected.messages[0].account.id !== session.items?.account.id
+				chat.selected?.account.id !== session.items?.account.id
 					? `(${chat.selected.unread_count}) `
 					: ""
 			}${`${account?.username} - `}Чат`;

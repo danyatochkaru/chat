@@ -55,12 +55,16 @@ const Dialogs = () => {
 			socketRef.current.emit("CHAT:JOIN", searchParams.get("id"));
 		}
 
-		socketRef.current.on("CHAT:NEW_MESSAGE", (message) => {
+		const updateMessagesData = (chatId) => {
 			fetchChats();
-			if (searchParams.has("id") && searchParams.get("id") == message.chatId) {
+			if (searchParams.has("id") && searchParams.get("id") == chatId) {
 				fetchMessagesByChatId(searchParams.get("id"));
 			}
-		});
+		};
+
+		socketRef.current.on("CHAT:NEW_MESSAGE", updateMessagesData);
+
+		socketRef.current.on("CHAT:MESSAGES_READED", updateMessagesData);
 
 		socketRef.current.on("connect", () => console.log("connect"));
 		socketRef.current.on("disconnect", () => console.log("disconnect"));

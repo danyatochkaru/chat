@@ -26,7 +26,7 @@ export default function messageReducer(
 			return {
 				...state,
 				loading: false,
-				items: payload && { ...payload, rows: payload.rows.reverse() },
+				items: payload ? { ...payload, rows: payload.rows.reverse() } : [],
 				error: null,
 			};
 		}

@@ -42,9 +42,7 @@ function App() {
 	const { fetchSession } = useAction();
 
 	React.useEffect(() => {
-		if (localStorage.getItem("token")) {
-			fetchSession();
-		}
+		fetchSession();
 	}, []);
 
 	return (

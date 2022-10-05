@@ -19,7 +19,6 @@ export default function messageReducer(
 			return {
 				...state,
 				loading: true,
-				items: null,
 				error: null,
 			};
 		}

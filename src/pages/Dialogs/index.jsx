@@ -52,12 +52,9 @@ const Dialogs = () => {
 
 	const updateMessagesData = (chatId) => {
 		fetchChats();
-		// console.log(searchParams.get("id"), chatId);
 		if (searchParams.has("id") && searchParams.get("id") == chatId) {
 			fetchMessagesByChatId(searchParams.get("id"));
-			debugger;
 		}
-		debugger;
 	};
 
 	React.useEffect(() => {

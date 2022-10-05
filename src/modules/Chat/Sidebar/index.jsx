@@ -44,23 +44,23 @@ const Sidebar = ({ isSearch }) => {
 		}
 	}, [searchParams.get("id")]);
 
-	React.useLayoutEffect(() => {
-		let title = "Чат";
+	// React.useLayoutEffect(() => {
+	// 	let title = "Чат";
 
-		if (chat.selected) {
-			const account = chat.selected?.accounts.find(
-				(a) => a.id !== session.items?.account.id,
-			);
-			title = `${
-				chat.selected.unread_count &&
-				chat.selected?.message.accountId !== session.items?.account.id
-					? `(${chat.selected.unread_count}) `
-					: ""
-			}${`${account?.username} - `}Чат`;
-		}
+	// 	if (chat.selected) {
+	// 		const account = chat.selected?.accounts.find(
+	// 			(a) => a.id !== session.items?.account.id,
+	// 		);
+	// 		title = `${
+	// 			chat.selected.unread_count &&
+	// 			chat.selected?.message.accountId !== session.items?.account.id
+	// 				? `(${chat.selected.unread_count}) `
+	// 				: ""
+	// 		}${`${account?.username} - `}Чат`;
+	// 	}
 
-		window.document.title = title;
-	}, [chat.selected?.id]);
+	// 	window.document.title = title;
+	// }, [chat.selected?.id]);
 
 	const formik = useFormik({
 		initialValues: {

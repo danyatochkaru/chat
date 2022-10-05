@@ -22,12 +22,18 @@ export const fetchSession = () => async (dispatch) => {
 			type: SESSION_ACTION_TYPES.FETCH_SUCCESS,
 			payload: data,
 		});
+		dispatch({
+			type: SESSION_ACTION_TYPES.INIT,
+		});
 	} catch (error) {
 		console.error(error);
 
 		dispatch({
 			type: SESSION_ACTION_TYPES.FETCH_ERROR,
 			payload: "",
+		});
+		dispatch({
+			type: SESSION_ACTION_TYPES.INIT,
 		});
 	}
 };

@@ -13,13 +13,13 @@ const AuthForm = ({ title, description, children }) => {
 	const { fetchSession } = useAction();
 
 	React.useEffect(() => {
-		if (session.items) {
+		if (session.items && session.isInit) {
 			return navigate("/");
 		}
 	}, [session]);
 
 	React.useEffect(() => {
-		fetchSession();
+		if (session.isInit) fetchSession();
 	}, []);
 
 	if (session.loading)

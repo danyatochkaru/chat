@@ -12,8 +12,8 @@ const Dialogs = () => {
 	const session = useSelector((state) => state.session);
 	const navigate = useNavigate();
 
-	React.useEffect(() => {
-		if (!session.items) {
+	React.useLayoutEffect(() => {
+		if (!session.items && session.isInit) {
 			return navigate("/signin");
 		}
 	}, [session]);

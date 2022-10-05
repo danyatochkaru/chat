@@ -35,8 +35,6 @@ const Sidebar = ({ isSearch }) => {
 
 	const [searchParams, setSearchParams] = useSearchParams();
 
-	const [items, setItems] = React.useState(null);
-
 	React.useEffect(() => {
 		/* if (items != chat.items?.rows && searchParams.has("id")) {
 			selectChat(searchParams.get("id"));
@@ -44,7 +42,7 @@ const Sidebar = ({ isSearch }) => {
 			console.log("selected not by search");
 			selectChat();
 		}
-		setItems(chat.items?.rows); */
+		*/
 
 		if (searchParams.has("id")) {
 			selectChat(searchParams.get("id"));

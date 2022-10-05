@@ -10,7 +10,7 @@ const Empty = () => {
 	const navigate = useNavigate();
 
 	React.useEffect(() => {
-		navigate(session.items ? "/chats" : "/signin");
+		if (session.isInit) navigate(session.items ? "/chats" : "/signin");
 	}, [session]);
 
 	return (

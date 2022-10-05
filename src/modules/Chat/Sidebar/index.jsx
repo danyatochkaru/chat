@@ -36,18 +36,13 @@ const Sidebar = ({ isSearch }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	React.useEffect(() => {
-		/* if (items != chat.items?.rows && searchParams.has("id")) {
-			selectChat(searchParams.get("id"));
-		} else {
-			console.log("selected not by search");
-			selectChat();
-		}
-		*/
-
+		console.log(searchParams.get("id"));
 		if (searchParams.has("id")) {
 			selectChat(searchParams.get("id"));
+		} else {
+			selectChat();
 		}
-	}, [searchParams.get("id"), chat.items]);
+	}, [searchParams.get("id")]);
 
 	React.useLayoutEffect(() => {
 		let title = "Чат";

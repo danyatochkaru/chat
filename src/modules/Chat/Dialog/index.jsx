@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Badge, Button, Empty, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
@@ -25,9 +25,10 @@ const Dialog = () => {
 	const isTyping = false && Date.now() % 2 === 0;
 	const [searchParams] = useSearchParams();
 
+	const { id } = useParams();
 	React.useEffect(() => {
-		if (searchParams.has("id")) fetchMessagesByChatId(searchParams.get("id"));
-	}, [searchParams.get("id")]);
+		if (id) fetchMessagesByChatId(id);
+	}, [id]);
 
 	const goToBottom = () => {
 		messagesRef.current?.addEventListener("DOMNodeInserted", (event) => {

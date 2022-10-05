@@ -1,7 +1,7 @@
 import React from "react";
 import "./Dialogs.scss";
 import { useSelector } from "react-redux";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 import { SidebarSection, DialogSection } from "modules";
 import { SettingsWindow } from "components";
@@ -49,10 +49,11 @@ const Dialogs = () => {
 			socketRef.current && socketRef.current.close();
 		};
 	}, []);
+	const { id } = useParams();
 
 	const updateMessagesData = (chatId) => {
 		fetchChats();
-		fetchMessagesByChatId(searchParams.get("id"));
+		fetchMessagesByChatId(id);
 	};
 
 	React.useEffect(() => {
@@ -65,10 +66,10 @@ const Dialogs = () => {
 	}, [socketRef.current]);
 
 	React.useEffect(() => {
-		if (searchParams.has("id")) {
-			socketRef.current.emit("CHAT:JOIN", searchParams.get("id"));
+		if (id) {
+			socketRef.current.emit("CHAT:JOIN", id);
 		}
-	}, [searchParams.get("id")]);
+	}, [id]);
 
 	return (
 		<main className="main_container">

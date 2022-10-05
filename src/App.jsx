@@ -49,7 +49,6 @@ function App() {
 		<Routes className="wrapper">
 			<Route path="/signin" element={<Login />} />
 			<Route path="/signup" element={<Registr />} />
-			<Route path="/chats/:id" element={<Dialogs />} />
 			<Route path="/chats" element={<Dialogs />} />
 			<Route path="*" element={<Empty />} />
 		</Routes>

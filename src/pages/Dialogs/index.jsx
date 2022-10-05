@@ -53,7 +53,7 @@ const Dialogs = () => {
 
 	const updateMessagesData = (chatId) => {
 		fetchChats();
-		fetchMessagesByChatId(id);
+		if (id === chatId) fetchMessagesByChatId(id);
 	};
 
 	React.useEffect(() => {
